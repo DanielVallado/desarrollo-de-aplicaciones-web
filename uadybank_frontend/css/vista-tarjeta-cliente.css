@@ -1,0 +1,118 @@
+:root{
+    --background-contenedor-principal: rgba(237, 237, 237, 1);
+    --background-contenedor-secundario:rgba(203, 211, 219, 0.5);
+    --color-letra-blanco: #FFFFFF;
+    --color-letra-negro :#000000; 
+    --tipografia:'Sarabun', sans-serif;
+}
+
+main{
+    display: flex;
+}
+.contenido__principal{
+    width: 75%;
+}
+.contenido__principal h2{
+    padding: 0 0 0 5%;
+}
+/* saldo disponible */
+.saldo__disponible{
+    background-color: var(--background-contenedor-principal);
+    width: 70%;
+    height: 30%;
+    margin: 0 15% 0 15%;
+    border-radius: 20px;
+    
+}
+.saldo__disponible h3{
+    font-family: var(--tipografia);
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 5% 0 0 5%;
+
+}
+.dinero__dispo{
+    display: flex;
+    font-family: var(--tipografia);
+    font-size: 3.5rem;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+
+}
+/*Botones*/
+.botones{
+    display: flex;
+    justify-content: center;
+}
+.boton__funcion{
+    margin: 0 10% 0 10%;
+    width: 15%;
+}
+
+/*TRANSACCIONES*/
+.transaccion{
+    background-color: var(--background-contenedor-principal);
+    width: 90%;
+    margin: 8% 5% 8% 5%;
+    border-radius: 20px;
+}
+.header__transaccion{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__transaccion h3{
+    font-family: var(--tipografia);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 3% 0 0 5%;
+}
+.barra__busqueda{
+    display: flex;
+    width: 30%;
+    margin: 3% 5% 0 0;
+}
+.elemento__transaccion{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.info__transaccion{
+    display: flex;
+    flex-direction: column;
+}
+.info__transaccion h4{
+    margin: auto 0 0 0 ;
+}
+.info__transaccion p{
+    font-size: .8rem;
+}
+/*Estado de cuenta- lateral*/
+.estado__cuenta{
+    background-color: var(--background-contenedor-secundario);
+    border-radius: 20px;
+    height: 90%;
+    width: 23%;
+    margin: 2% 1% 2% 1%;
+    
+}
+.cuestionario__estado{
+    display: flex;
+    flex-direction: column;
+}
+.fecha__estado{
+    display: flex;
+    flex-direction: column;
+    margin: 10% 20% 10% 20%;
+}
+.fecha__estado select{
+    height: 3vw;
+}
+.boton__estado{
+    text-align: center;
+}
+.boton__estado button{
+    margin: 0 auto;
+    height: 2.5rem;
+}
