@@ -1,26 +1,27 @@
-:root{
+:root {
     --background-color-logo: rgba(0, 46, 95, 1);
-    --background-color-signin__singup: rgba(255,255,255,1);
+    --background-color-signin__singup: rgba(255, 255, 255, 1);
 }
 
-main section{
+main section {
     display: flex;
     min-height: 78vh;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
-.signin__signup{
+.signin__signup {
     position: relative;
     width: 80%;
-    height:80%;
+    height: 80%;
     background-color: var(--background-color-logo);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
 }
-main .box{
+
+main .box {
     position: relative;
     width: 50%;
     height: 100%;
@@ -31,16 +32,18 @@ main .box{
     flex-direction: column;
     padding: 5% 0 5% 0;
 }
-main .box img{
-   width: 70%;  
+
+main .box img {
+    width: 70%;
 }
 
-main .box button{
+main .box button {
     cursor: pointer;
     padding: 2% 8%;
     border-radius: 20px;
 }
-.formularioB{
+
+.formularioB {
     position: absolute;
     width: 50%;
     height: 100%;
@@ -51,13 +54,14 @@ main .box button{
     transition: 0.5s;
     transition-delay: 0.5s;
     overflow: hidden;
-    
+
 }
 
-.slide .formularioB{
+.slide .formularioB {
     left: 50%;
 }
-.formularioB .formulario{
+
+.formularioB .formulario {
     position: absolute;
     top: 0;
     left: 0;
@@ -70,31 +74,37 @@ main .box button{
     background: var(--background-color-signin__singup);
 
 }
-.formularioB .formulario.registro{
+
+.formularioB .formulario.registro {
     top: 100%;
     transition-delay: 0s;
 }
-.slide .formularioB .formulario.registro{
+
+.slide .formularioB .formulario.registro {
     top: 0%;
     transition-delay: 0.5s;
 }
-.formularioB .formulario.inicio{
+
+.formularioB .formulario.inicio {
     top: 0%;
     transition-delay: 0.5s;
 }
-.slide .formularioB .formulario.inicio{
+
+.slide .formularioB .formulario.inicio {
     top: -100%;
     transition-delay: 0s;
 }
-.formulario.inicio form{
+
+.formulario.inicio form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; 
-     
-    
+    width: 100%;
+
+
 }
-.formulario.inicio form #btn__inicio{
+
+.formulario.inicio form #btn__inicio {
     padding: 2%;
     margin: 2%;
 }

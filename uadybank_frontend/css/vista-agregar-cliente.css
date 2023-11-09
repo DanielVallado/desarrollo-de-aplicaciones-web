@@ -1,72 +1,82 @@
-:root{
-    --background-tarjetas : rgba(249, 249, 249, 0.557);
+:root {
+    --background-tarjetas: rgba(249, 249, 249, 0.557);
     --color-letras-negras: rgba(0, 0, 0, 1);
-    --tipografia:'Sarabun', sans-serif;
-    --color-letras-formulario : rgba(0, 46, 95, 0.5);
-    --background-boton : rgba(198, 147, 22, 0.9);
+    --tipografia: 'Sarabun', sans-serif;
+    --color-letras-formulario: rgba(0, 46, 95, 0.5);
+    --background-boton: rgba(198, 147, 22, 0.9);
     --borde-color-boton: rgba(0, 0, 0, 0.6);
-    --border-color:rgba(0, 0, 0, 1);
+    --border-color: rgba(0, 0, 0, 1);
 }
+
 /*Tarjetas*/
-.tarjetas{
+.tarjetas {
     width: 80%;
     margin: 0 auto;
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10%;
 }
-.contenido__tarjetas{
+
+.contenido__tarjetas {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 1.5rem;
 }
-.contenido__tarjetas img{
+
+.contenido__tarjetas img {
     width: 80%;
     margin: 5% 0 5% 0;
 }
 
 /*Formulario*/
 
-.contenido__formulario{
+.contenido__formulario {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(5, 1fr);
     gap: 5%;
     margin: 3% 10% 5% 10%;
 }
-.titulo__formulario{
+
+.titulo__formulario {
     grid-column-start: 1;
     grid-column-end: 3;
     font-size: 3rem;
 }
-.pregunta__formulario__direccion{
+
+.pregunta__formulario__direccion {
     grid-column-start: 1;
     grid-column-end: 3;
     display: flex;
     flex-direction: column;
 }
-.pregunta__formulario{
+
+.pregunta__formulario {
     display: flex;
     flex-direction: column;
 }
-.contenido__formulario input{
+
+.contenido__formulario input {
     height: 50%;
     border-radius: 5px;
     font-size: 1.5rem;
     box-shadow: 3px 3px 5px;
 }
-.contenido__formulario label{
+
+.contenido__formulario label {
     font-size: 2rem;
     margin: 0 0 2% 0;
     color: var(--color-letras-formulario);
 }
+
 /*boton "agregar cliente"*/
-.boton{
+.boton {
     display: flex;
     justify-content: center;
 }
-.boton input{
+
+.boton input {
     background-color: var(--background-boton);
     border-color: var(--borde-color-boton);
     border-radius: 5px;

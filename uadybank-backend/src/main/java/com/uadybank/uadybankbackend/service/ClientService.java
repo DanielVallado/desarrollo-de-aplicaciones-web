@@ -1,16 +1,15 @@
 package com.uadybank.uadybankbackend.service;
 
-import com.uadybank.uadybankbackend.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountService {
+public class ClientService {
 
-    private AccountRepository repository;
+    private ClientService repository;
 
     @Autowired
-    public void setRepository(AccountRepository repository) {
+    public void setRepository(ClientService repository) {
         this.repository = repository;
     }
 

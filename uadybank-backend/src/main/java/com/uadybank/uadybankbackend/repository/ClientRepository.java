@@ -1,8 +1,8 @@
 package com.uadybank.uadybankbackend.repository;
 
-import com.uadybank.uadybankbackend.entity.Card;
+import com.uadybank.uadybankbackend.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CardRepository extends JpaRepository<Card, Long> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 
 }
