@@ -1,19 +1,34 @@
 @import url(../../styles/variables.css);
 
+
+
 .footer {
     background-color: var(--primary-color);
     color: var(--white);
-    display: flex;
-    height: 10rem;    
+    display: block;
+    height: auto;
     padding: 2rem;
-    justify-content: space-between;
-    align-items: center;
+}
+@media (min-width: 768px) {
+    .footer {
+        display: flex;
+        height: 10rem;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 /** Logo */
 .footer__logo a {
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+@media (min-width: 768px) {
+    .footer__logo a {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .footer__logo h2 {
@@ -37,11 +52,19 @@
 
 /** Info */
 .footer__info ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: right;
+    text-align: center;
+    margin-top: 2rem;
 }
+@media (min-width: 768px) {
+    .footer__info ul {
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+    }
+}
+
 .footer__info a,
 .footer-bottom p {
     font-family: var(--secondary-font);
@@ -49,12 +72,24 @@
 }
 
 .footer__info li {
-    display: inline;
+    display: block;
+    margin: 1rem;
+}
+@media (min-width: 768px) {
+    .footer__info li {
+        display: inline;
+        margin: 0;
+    }
 }
 
 .footer__info li a {
     padding: 1rem;
     font-size: 1.6rem;
+}
+@media (min-width: 768px) {
+    .footer__info li a {
+    
+    }
 }
 
 .footer__info li:last-child a {
@@ -63,14 +98,32 @@
 
 .link__bar {
     display: inline-block;
-    height: 2.2rem;
-    width: 0.1rem;
     border-radius: 40px;
-    background-color: var(--white);
+    background-color: #D9D9D9;
+    height: 0.05rem;
+    width: 15rem;
+}
+@media (min-width: 768px) {
+    .link__bar {
+        height: 2.2rem;
+        width: 0.1rem;
+    }
+    
 }
 
 .footer__bottom p {
-    font-size: 1.2rem;
-    text-align: right;
-    margin-top: 1rem;
+    font-size: 1rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    text-align: center;
+    color: rgb(255 255 255 / 0.4);
+}
+@media (min-width: 768px) {
+    .footer__bottom p {
+        font-size: 1.2rem;
+        padding: 0;
+        margin-top: 1rem;
+        text-align: right;
+    }
+
 }

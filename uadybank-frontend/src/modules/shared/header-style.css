@@ -67,13 +67,14 @@
 .header__options {
   overflow: hidden;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 0;
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out;
 }
 
 .header__options.open {
+  margin-top: 3rem;
   max-height: 30rem;
   opacity: 1;
 }
