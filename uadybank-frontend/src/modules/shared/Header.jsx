@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Header.css";
+import "./header-style.css";
+import uadybankLogo from "../../assets/uadybank-black.svg";
 import defaultUserIcon from "../../assets/user-icon.svg";
 import BurguerButton from "./BurguerButton";
 
@@ -33,7 +34,7 @@ export const Header = () => {
       <div className="header__container">
         <div className="header__logo">
           <a href="#">
-            <img src="/uadybank-black.svg" alt="Logo UADYBank" />
+            <img src={uadybankLogo} alt="Logo UADYBank" />
             <h1>UADYBANK</h1>
           </a>
         </div>

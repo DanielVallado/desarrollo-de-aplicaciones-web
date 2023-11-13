@@ -13,11 +13,12 @@ html {
 
 body {
     background-color: var(--white);
-    font-family: var(--primary-font);
+    font-family: var(--secondary-font);
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--secondary-font);
+    font-family: var(--primary-font);
+    margin: 0;
 }
 
 h1 {
@@ -35,7 +36,7 @@ h3 {
 p {
     margin: 0;
     font-size: 1.6rem;
-    font-family: var(--primary-font);
+    font-family: var(--secondary-font);
 }
 
 a {

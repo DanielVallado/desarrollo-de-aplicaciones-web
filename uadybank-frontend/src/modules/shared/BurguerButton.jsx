@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./BurguerButton.css";
+import "./burguer-button-style.css";
 
 export const BurguerButton = ({ onClick, isOpen }) => {
   const buttonClasses = `burguer-icon ${isOpen ? "open" : ""}`;
