@@ -1,0 +1,10 @@
+:root {
+    --primary-color: #002E5F;
+    --secondary-color: #D6A223;
+    --white: #FFFFFF;
+    --black: #000000;
+    --gray-bg: #EFEFEF;
+    --gradient-blue: #31567D;
+    --primary-font: 'Poppins', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+}
