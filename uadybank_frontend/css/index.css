@@ -1,28 +1,31 @@
 :root{
     --background-color-logo: rgba(0, 46, 95, 1);
     --background-color-signin__singup: rgba(255,255,255,1);
+    --background-boton:rgba(214, 162, 35, 1);
+    --background-input: rgba(224, 231, 238, 1);
+    --borde-input:rgba(0, 0, 0, 0.25);
 }
+
 
 main section{
     display: flex;
-    min-height: 78vh;
+    min-height: 53.9rem;
     justify-content: center;
     align-items: center; 
 }
 
 .signin__signup{
     position: relative;
-    width: 80%;
-    height:80%;
+    height: 50rem;
     background-color: var(--background-color-logo);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-radius: 20px;
 }
 main .box{
     position: relative;
-    width: 50%;
+    width: 40%;
     height: 100%;
     z-index: 10;
     display: flex;
@@ -37,25 +40,29 @@ main .box img{
 
 main .box button{
     cursor: pointer;
-    padding: 2% 8%;
+    font-size: 2rem;
+    padding: 3% 8%;
     border-radius: 20px;
+    background-color: var(--background-boton);
 }
+/*base del formulario*/
 .formularioB{
     position: absolute;
-    width: 50%;
+    width: 60%;
     height: 100%;
-    background-color: var(--background-color-signin__singup);
-    right: 50%;
+    right: 40%;
     z-index: 1000;
     box-shadow: 0px 5px 25px;
     transition: 0.5s;
     transition-delay: 0.5s;
     overflow: hidden;
+    border-radius: 20px;
+    background-color: var(--background-color-logo);
     
 }
 
 .slide .formularioB{
-    left: 50%;
+    left: 40%;
 }
 .formularioB .formulario{
     position: absolute;
@@ -67,34 +74,96 @@ main .box button{
     justify-content: center;
     align-items: center;
     transition: 0.5s;
-    background: var(--background-color-signin__singup);
+    
 
 }
+/*Transiciones*/
 .formularioB .formulario.registro{
     top: 100%;
     transition-delay: 0s;
+    background: var(--background-color-signin__singup);
+    border-radius: 20px;
 }
 .slide .formularioB .formulario.registro{
     top: 0%;
-    transition-delay: 0.5s;
+    transition-delay: 0.1s;
 }
 .formularioB .formulario.inicio{
     top: 0%;
-    transition-delay: 0.5s;
+    transition-delay: 0.1s;
+    background: var(--background-color-signin__singup);
+    border-radius: 20px; 
+           
 }
 .slide .formularioB .formulario.inicio{
     top: -100%;
     transition-delay: 0s;
 }
+/*Formulario inicio de sesion*/
 .formulario.inicio form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; 
-     
-    
+
 }
-.formulario.inicio form #btn__inicio{
-    padding: 2%;
-    margin: 2%;
+.formulario.inicio form h2{
+    font-size: 2.5rem;
 }
+.formulario.inicio input{
+    font-size: 1.5rem;
+    padding: 1.5rem 15rem 1.5rem 1.5rem;
+    margin: 5% 0;
+    border-radius: 20px;
+    background-color: var(--background-input);
+    border-color: var(--borde-input);
+    box-shadow: 3px 3px 5px;
+
+}
+.formulario.inicio form a{
+    font-size: 1.5rem;
+    margin: 5% 5%;
+}
+#btn__inicio{
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    margin: 3%;
+    background-color: var(--background-boton);
+    box-shadow: 3px 3px 5px;
+}
+/*Formulario registro*/
+.formulario.registro form{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(8,1fr);
+    gap: 1rem;
+    width: 70%;
+    height: 90%;
+    margin: 0 auto;
+
+}
+.registro__DEspacio{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.formulario.registro h2{
+    font-size: 3rem;
+    margin: 0 auto;
+}
+.formulario.registro form input{
+    border-radius: 20px;
+    background-color: var(--background-input);
+    border-color: var(--borde-input);
+    box-shadow: 3px 3px 5px;
+    font-size: 2rem; 
+    padding: 0rem 0rem 0 1rem;
+}
+
+#btn__registro{
+    background-color: var(--background-boton);
+    box-shadow: 3px 3px 5px;
+    width: 30%;
+    font-size: 1.5rem;
+    margin: 0 auto;
+    padding: 0;
+}
+

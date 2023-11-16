@@ -14,20 +14,13 @@
 html{
     box-sizing: border-box;
     font-size: 62.5%;
+    min-height: 100%;
+    
 }
 *,*:before,*:after{
     box-sizing: inherit;
 }
 
-
-.conteiner{
-    display: flex; 
-    background-color: var(--background-menu-lateral); 
-}
-.menu__lateral{
-    display: flex;
-    width: 5%;
-}
 .contenido__header{
     display: flex;
     flex-direction: column;

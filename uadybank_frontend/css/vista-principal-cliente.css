@@ -3,8 +3,11 @@
     --color-letra-blanco: #FFFFFF;
     --color-letra-negro :#000000; 
     --tipografia:'Sarabun', sans-serif;
+    --background-botones-funciones:rgba(249, 249, 249, 0.8);
+    --color-letras-botones:rgba(0, 46, 95, 0.5);
 }
 .saludo{
+    font-size: 3rem;
     margin: 2% 0 0% 5%;
 }
 /* cuenta*/
@@ -17,35 +20,74 @@
     width: 40%;
 }
 .tarjeta__principal img{
-    width: 70%;
+    width: 80%;
+    margin: 0 10%;
 }
+/*Informacion tarjeta*/
 .info__tarjeta{
-    background-color: var(--background-principal);
-    border-radius: 20px;
-    width: 40%;
-    padding: 5% 5% 5% 5%;
+    font-size: 1.5rem;
+    width: 50%;
 }
+.info__tarjeta h3,h4{
+    font-size: 2.5rem;
+    margin: 3% 0% 0% 5%;
+}
+.info__tarjeta p{
+    font-size: 3rem;
+    margin: 3% 0% 5% 5%;
+}
+.info__tarjeta .saldo{
+    font-size: 5rem;
+    font-weight: 600;
+}
+
 
 /*Botones*/
 .botones{
     display: flex;
-    
+    justify-content: center;
+    gap: 10%;
+    margin: 2rem 0 0 0;
 }
 .boton__funcion{
-    margin: 0 10% 0 10%;
-    width: 15%;
+    width: 20%;
+    background-color: var(--background-botones-funciones);
+    box-shadow: 3px 3px 5px;
+    color: var(--color-letras-botones);
+    font-size: 1.5rem;
+    border-radius: 5px;
+}
+.boton__funcion img{
+    width: 65%;
+    margin: 0.5rem 0;
 }
 
 /*tajetas*/
 .tarjetas{
-    display: flex;
-    justify-content: space-around;
-    
-    
+    width: 80%;
+    margin: 0 auto 5rem auto;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10%;
 }
-
 .contenido__tarjetas{
-    background-color: var(--background-principal);
-    border-radius: 20px;
-    margin: 0 0 5% 0;
+    display: flex;
+    flex-direction: column;
+}
+.contenido__tarjetas h3{
+    font-size: 2.5rem;
+    margin: 1.5rem 0 1.5rem 1.5rem;
+}
+.contenido__tarjetas img{
+    width: 80%;
+    margin: 0 auto;
+}
+.contenido__tarjetas h4{
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1.5rem 1.5rem;
+}
+.contenido__tarjetas p{
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin: 0 auto 2rem auto ;
 }

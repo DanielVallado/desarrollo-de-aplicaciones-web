@@ -7,6 +7,8 @@
     <title>UADYBANK</title>
     <link rel="stylesheet" href="css/general-style.css">
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/vista-modificar-cliente.css">
+
 </head>
 
 <body>
@@ -52,41 +54,41 @@
                 </div>
             </header>
             <main>
-                <section>
-                    <div>
-                        <h2>Modificar cliente</h2>
-                        <div>
+                <section class="formulario">
+                    <div class="contenido__formulario">
+                        <h2 class="titulo__formulario">Modificar cliente</h2>
+                        <div class="pregunta__formulario">
                             <label for="nombre">Nombre</label>
                             <input type="text" id="nombre" name="nombre">
                         </div>
-                        <div>
+                        <div class="pregunta__formulario">
                             <label for="apellido">Apellido</label>
                             <input type="text" id="apellido" name="apellido">
                         </div>
-                        <div>
+                        <div class="pregunta__formulario__direccion">
                             <label for="direccion">Direccion</label>
                             <input type="text" id="direccion" name="direccion">
                         </div>
-                        <div>
+                        <div class="pregunta__formulario">
                             <label for="telefono">Telefono</label>
                             <input type="tel"  id="telefono" name="telefono">
                         </div>
-                        <div>
+                        <div class="pregunta__formulario">
                             <label for="fecha">Fecha de nacimiento</label>
                             <input type="date" id="fecha" name="fecha">
                         </div>
-                        <div>
-                            <label for="rfc">Rfc</label>
+                        <div class="pregunta__formulario">
+                            <label for="rfc">RFC</label>
                             <input type="text" id="rfc" name="rfc">
                         </div>
-                        <div>
-                            <label for="curp">Curp</label>
+                        <div class="pregunta__formulario">
+                            <label for="curp">CURP</label>
                             <input type="text" id="curp" name="curp">
                         </div>
                     </div>
-                    <div>
-                        <input value="Agregar cliente" type="submit">
-                    </div>  
+                    <div class="boton">
+                        <input value="Modificar cliente" type="submit">
+                    </div>
                 </section>
             </main>
         </div>

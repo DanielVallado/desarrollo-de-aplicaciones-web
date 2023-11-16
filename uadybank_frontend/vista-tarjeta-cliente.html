@@ -7,6 +7,7 @@
     <title>UADYBANK</title>
     <link rel="stylesheet" href="css/general-style.css">
     <link rel="stylesheet" href="css/vista-tarjeta-cliente.css">
+    <link rel="stylesheet" href="css/normalize.css">
 </head>
 
 <body>
@@ -43,95 +44,93 @@
         <div class="contenido__header">
             <header>
                 <h1 ><a class="titulo" href="index.html">UADYBANK</a></h1>
-                <div class="header__admin">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                    </svg>
-                    <a class="texto__admin" href="">Admin</a>
-                </div>
+                
             </header>
             <main>
-                <section class="contenido__principal">
-                    <h2>Tarjeta ---</h2>
-                    <div class="saldo__disponible">
-                        <h3>Saldo disponible</h3>
-                        <p class="dinero__dispo">$0000.00</p>
-                    </div>
-                    <div class="botones">
-                        <button class="boton__funcion">Tranferir</button>
-                        <button class="boton__funcion">Estado de cuenta</button>
-                    </div>
-                    <div class="transaccion">
-                        <div class="header__transaccion">
-                            <h3>Transacciones</h3>
-                            <input class="barra__busqueda" type="text">
+                <div class="base__main">
+                    <section class="contenido__principal">
+                        <h2>Tarjeta ---</h2>
+                        <div class="fondo__generico saldo__disponible">
+                            <h3>Saldo disponible</h3>
+                            <p class="dinero__dispo">$0000.00</p>
                         </div>
-                        <div class="elemento__transaccion">
-                            <div>
-                                <img src="" alt="">
-                                <div class="info__transaccion">
-                                    <h4>Transaccion</h4>
-                                    <p>lorem ipsum</p>
-                                </div>
+                        <div class="botones">
+                            <button class="boton__funcion"> <img src="img/iconos/transferir 1.png" alt="">Tranferir</button>
+                            <button class="boton__funcion"> <img src="img/iconos/depositar 1.png" alt="">Depositar</button>
+                        </div>
+                        <div class="fondo__generico transaccion">
+                            <div class="header__transaccion">
+                                <h3>Transacciones</h3>
+                                <input class="barra__busqueda" type="text">
                             </div>
-                            <p>compra</p>
-                            <p>$000.00</p>
-                        </div>
-                        <div class="elemento__transaccion" >
-                            <div>
-                                <img src="" alt="">
-                                <div class="info__transaccion">
-                                    <h4>Transaccion</h4>
-                                    <p>lorem ipsum</p>
+                            <div class="elemento__transaccion">
+                                <div>
+                                    <img src="" alt="">
+                                    <div class="info__transaccion">
+                                        <h4>Transaccion</h4>
+                                        <p>lorem ipsum</p>
+                                    </div>
                                 </div>
+                                <p>compra</p>
+                                <p>$000.00</p>
                             </div>
-                            <p>compra</p>
-                            <p>$000.00</p>
+                            <div class="elemento__transaccion" >
+                                <div>
+                                    <img src="" alt="">
+                                    <div class="info__transaccion">
+                                        <h4>Transaccion</h4>
+                                        <p>lorem ipsum</p>
+                                    </div>
+                                </div>
+                                <p>compra</p>
+                                <p>$000.00</p>
+                            </div>
                         </div>
-                    </div>
-                </section>
-        
-                <section class="estado__cuenta">
-                    <h2>Tarjeta</h2>
-                    <img src="img/" alt="">
-                    <input type="checkbox" name="" id="">
-                    <p>Tarjeta --</p>
-                    <h3>Estados de cuenta</h3>
-                    <div class="cuestionario__estado">
-                        <div class="fecha__estado">
-                            <label for="mes">Mes:</label>
-                            <select name="mes" id="mes">
-                                <option value="opción 1">Opción 1</option>
-                                <option value="opción 2">Opción 1</option>
-                            </select>
+                    </section>
+            
+                    <section class="fondo__generico estado__cuenta">
+                        <h2>Tarjeta</h2>
+                        <img src="img/tarjetas/tarjeta-clasica.png" alt="">
+                        <div class="checkbox__tarjeta">
+                            <input type="checkbox" name="" id="">
+                            <p>Tarjeta --</p>
                         </div>
-                        <div class="fecha__estado">
-                            <label for="año">Año:</label>
-                            <select name="año" id="año">
-                                <option value="opción 1">Opción 1</option>
-                                <option value="opción 2">Opción 1</option>
-                            </select>
+                        
+                        <h3>Estados de cuenta</h3>
+                        <div class="cuestionario__estado">
+                            <div class="fecha__estado">
+                                <label for="mes">Mes:</label>
+                                <select name="mes" id="mes">
+                                    <option value="opción 1">Opción 1</option>
+                                    <option value="opción 2">Opción 1</option>
+                                </select>
+                            </div>
+                            <div class="fecha__estado">
+                                <label for="año">Año:</label>
+                                <select name="año" id="año">
+                                    <option value="opción 1">Opción 1</option>
+                                    <option value="opción 2">Opción 1</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="boton__estado">
-                        <button >Imprimir</button>
-                    </div>
-                </section>
+                        <div class="boton__estado">
+                            <button >Imprimir</button>
+                        </div>
+                    </section>
+                </div>
             </main>
         </div>
     </div>
         
     <footer class="footer">
         <div class="footer__logo">
-           
             <img class="footer__logo__blanco" src="img/logotipo/imagotipo_blanco.png" alt="Imagotipo UADYBANK">
             <h3><a class="footer__titulo" href="index.html">UADYBANK</a></h3>
         </div>
         <div class="footer__informacion">
             <nav class="footer__nav">
-                <a href="">Sobre nosotros</a> |
-                <a href="">Contacto</a> |
+                <a href="">Sobre nosotros</a> <span class="caracter__footer"> &#124;</span> 
+                <a href="">Contacto</a> <span class="caracter__footer"> &#124;</span> 
                 <a href="">Términos y condiciones</a>
             </nav>
             <p>Todos los derechos reservados ®</p>
