@@ -6,7 +6,9 @@ export const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar__logo">
-        <img src={uadybankLogo} alt="UADYBank" />
+        <a href="">
+          <img src={uadybankLogo} alt="UADYBank" />
+        </a>
       </div>
       <div className="navbar__menu">
         <ul>

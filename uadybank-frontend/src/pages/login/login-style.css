@@ -1,0 +1,23 @@
+@import url(../../styles/variables.css);
+
+.login { /* General login section */
+    background-color: var(--gray-bg);
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__container {
+    width: min(80%, 60rem);
+    min-height: 35rem;
+    filter: drop-shadow(20px 20px 95px var(--gradient-black));
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.back-container,
+.front-container {  
+    display: flex;
+    justify-content: space-between;
+}

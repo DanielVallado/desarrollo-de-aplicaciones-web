@@ -35,6 +35,7 @@ export const Header = () => {
         <div className="header__logo">
           <a href="#">
             <img src={uadybankLogo} alt="Logo UADYBank" />
+            <span className="header__barra"></span>
             <h1>UADYBANK</h1>
           </a>
         </div>
