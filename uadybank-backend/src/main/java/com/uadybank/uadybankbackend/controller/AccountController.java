@@ -13,7 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/account")
-public class AccountController {
+public class AccountController implements iController<Account> {
+
     private AccountRepository repository;
 
     @Autowired
@@ -21,27 +22,31 @@ public class AccountController {
         this.repository = repository;
     }
 
+    @Override
     @GetMapping("/accounts")
-    public ResponseEntity<?> listarTodosAccounts() {
+    public ResponseEntity<?> getAll() {
         List<Account> accounts = repository.findAll();
         return ResponseEntity.ok(accounts);
     }
 
+    @Override
     @GetMapping("/accounts/{id}")
-    public ResponseEntity<?> obtenerAccountPorId(@PathVariable Long id) {
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         Account account = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con ID " + id));
         return ResponseEntity.ok(account);
     }
 
+    @Override
     @PostMapping("/accounts")
-    public ResponseEntity<?> guardarAccount(@Valid @RequestBody Account account) {
+    public ResponseEntity<?> save(@Valid @RequestBody Account account) {
         repository.save(account);
         return ResponseEntity.ok(account);
     }
 
+    @Override
     @PutMapping("/accounts/{id}")
-    public ResponseEntity<?> actualizarAccount(@PathVariable Long id, @Valid@RequestBody Account account) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody Account account) {
         Account accountExistente = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con ID: " + id));
 
@@ -53,8 +58,9 @@ public class AccountController {
         return ResponseEntity.ok(newAccount);
     }
 
+    @Override
     @DeleteMapping("/accounts/{id}")
-    public ResponseEntity<?> eliminarAccount(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         Account accountExistente = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con ID: " + id));
 
@@ -66,4 +72,5 @@ public class AccountController {
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
 }

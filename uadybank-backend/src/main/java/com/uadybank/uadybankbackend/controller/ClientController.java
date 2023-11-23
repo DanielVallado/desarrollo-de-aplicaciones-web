@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/client")
-public class ClientController {
+public class ClientController implements iController<Client> {
 
     private ClientRepository repository;
 
@@ -23,26 +23,26 @@ public class ClientController {
     }
 
     @GetMapping("/clients")
-    public ResponseEntity<?> listarTodosClients() {
+    public ResponseEntity<?> getAll() {
         List<Client> clients = repository.findAll();
         return ResponseEntity.ok(clients);
     }
 
     @GetMapping("/clients/{id}")
-    public ResponseEntity<?> obtenerClientPorId(@PathVariable Long id) {
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         Client client = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID " + id));
         return ResponseEntity.ok(client);
     }
 
     @PostMapping("/clients")
-    public ResponseEntity<?> guardarClient(@Valid @RequestBody Client client) {
+    public ResponseEntity<?> save(@Valid @RequestBody Client client) {
         repository.save(client);
         return ResponseEntity.ok(client);
     }
 
     @PutMapping("/clients/{id}")
-    public ResponseEntity<?> actualizarClient(@PathVariable Long id, @Valid@RequestBody Client client) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid@RequestBody Client client) {
         Client clientExistente = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + id));
 
@@ -61,7 +61,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/clients/{id}")
-    public ResponseEntity<?> eliminarClient(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         Client clientExistente = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + id));
 
