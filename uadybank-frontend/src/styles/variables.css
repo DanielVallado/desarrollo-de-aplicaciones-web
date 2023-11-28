@@ -1,0 +1,14 @@
+:root {
+    --primary-color: #002E5F;
+    --secondary-color: #D6A223;
+    --white: #FFFFFF;
+    --black: #000000;
+    --gray: #9b9b9b;
+    --gray-bg: #EFEFEF;
+    --gradient-blue: #31567D;
+    --primary-font: 'Poppins', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
+    --gradient-white: rgb(255 255 255 / 0.5);
+    --gradient-black: rgba(0, 0, 0, 0.25);
+    --red: #B22222;
+}

@@ -1,0 +1,117 @@
+@import url(variables.css);
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: var(--white);
+    font-family: var(--secondary-font);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--primary-font);
+    margin: 0;
+}
+
+h1 {
+    font-size: 3.2rem;
+}
+
+h2 {
+    font-size: 2.8rem;
+}
+
+h3 {
+    font-size: 2.4rem;
+}
+
+p {
+    margin: 0;
+    font-size: 1.6rem;
+    font-family: var(--secondary-font);
+}
+
+a {
+    text-decoration: none;
+    color: var(--black);
+}
+
+img {
+    max-width: 100%;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 15px;
+    margin: 1rem;
+}
+
+.button {
+    background-color: var(--secondary-color);
+    filter: drop-shadow(10px 10px 50px var(--gradient-black));
+    color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    filter: brightness(0.9);
+}
+
+.button:active {
+    padding: 0.9rem 1.9rem;
+    margin: 0.1rem 0.1rem;
+}
+
+.menu {
+    display: flex;
+}
+
+.menu__navbar {
+    display: none;
+}
+
+.menu main {
+    width: 100%;
+    background-color: var(--white);
+    border-radius: 3rem 0 0 0;
+    filter: drop-shadow(-10px 0px 30px rgba(0, 0, 0, 0.25)); /* Sombra izquierda */
+}
+@media (min-width: 768px) {
+    .menu__navbar {
+        display: inline-block;
+    }
+
+    .menu main {
+        margin: 0 0 0 -10rem;
+    }
+}
+

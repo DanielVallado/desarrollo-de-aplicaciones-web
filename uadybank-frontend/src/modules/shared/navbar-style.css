@@ -1,0 +1,34 @@
+@import url(../../styles/variables.css);
+
+.navbar {
+  background-color: var(--gradient-blue);
+  width: 18rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  padding: 1rem 1rem;
+}
+
+.navbar__logo {
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+}
+
+.navbar__menu {
+    width: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem 0;
+    padding: 0;
+}
+
+.navbar__icon {
+    width: 3em;
+    height: 3rem;
+    margin: 2rem 0;
+    color: var(--gradient-white);
+}
