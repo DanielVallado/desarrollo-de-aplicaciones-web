@@ -1,6 +1,6 @@
 import React from "react";
+import uadybankLogo from "/src/assets/uadybank-black.svg";
 import "./header-login-style.css";
-import uadybankLogo from "../../assets/uadybank-black.svg";
 
 export const HeaderLogin = () => {
   return (

@@ -1,16 +1,17 @@
-import React from "react";
-import uadybankLogo from "../../assets/uadybank-white.svg";
-import Footer from "../../modules/shared/footer";
+import React, { useState } from "react";
+import { CSSTransition } from "react-transition-group";
+import HeaderLogin from "/src/modules/login/HeaderLogin";
+import Footer from "/src/modules/shared/footer";
+import LoginForm from "/src/modules/login/LoginForm";
+import RegisterForm from "/src/modules/login/RegisterForm";
+import LoginPanel from "/src/modules/login/LoginPanel";
 import "./login-style.css";
-import HeaderLogin from "./HeaderLogin";
-import LoginForm from "./login_components/LoginForm";
-import RegisterForm from "./login_components/RegisterForm";
-import LoginPanel from "./login_components/LoginPanel";
 
 export const Login = () => {
+  const [isRegister, setIsRegister] = useState(false);
+
   const handleButtonClick = (type) => {
-    //! TODO Lógica para manejar el clic en el botón
-    console.log(`${type} button clicked`);
+    setIsRegister(type === "register");
   };
 
   return (
@@ -19,15 +20,43 @@ export const Login = () => {
 
       <main className="login">
         <section className="login__container card">
-          <div className="front-container">
-            <LoginPanel type="register" onButtonClick={handleButtonClick} />
-            {/* <LoginPanel type="login" onButtonClick={handleButtonClick} /> */}
+          <div className={`front-container ${isRegister ? "active" : ""}`}>
+            <LoginPanel
+              type="register"
+              onButtonClick={handleButtonClick}
+              isActive={!isRegister}
+            />
+            <LoginPanel
+              type="login"
+              onButtonClick={handleButtonClick}
+              isActive={isRegister}
+            />
           </div>
 
-          <div className="back-container">
-            <LoginForm />
-            {/* <RegisterForm /> */}
-          </div>
+          <CSSTransition
+            in={isRegister}
+            timeout={{ enter: 1000, exit: 0 }}
+            classNames="fade"
+          >
+            <div
+              className={`back-container--register ${
+                isRegister ? "active" : ""
+              }`}
+            >
+              <RegisterForm />
+            </div>
+          </CSSTransition>
+          <CSSTransition
+            in={!isRegister}
+            timeout={{ enter: 1000, exit: 0 }}
+            classNames="fade"
+          >
+            <div
+              className={`back-container--login ${!isRegister ? "active" : ""}`}
+            >
+              <LoginForm />
+            </div>
+          </CSSTransition>
         </section>
       </main>
 

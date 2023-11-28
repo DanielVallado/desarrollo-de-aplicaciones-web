@@ -1,9 +1,0 @@
-@import url(../../../styles/variables.css);
-
-.login-panel,
-.register-panel {
-    width: 100%;
-    text-align: center;
-    background-color: var(--primary-color);
-    border-radius: 15px;
-}

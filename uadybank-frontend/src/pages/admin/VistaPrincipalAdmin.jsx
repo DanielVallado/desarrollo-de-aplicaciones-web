@@ -1,8 +1,8 @@
 import React from "react";
 import uadybankLogo from "../../assets/uadybank-white.svg";
-import Navbar from "../../modules/shared/navbar";
-import Header from "../../modules/shared/header";
-import Footer from "../../modules/shared/footer";
+import Navbar from "/src/modules/shared/navbar";
+import Header from "/src/modules/shared/header";
+import Footer from "/src/modules/shared/footer";
 import "./vista-principal-admin.css";
 
 export const VistaPrincipalAdmin = () => {
