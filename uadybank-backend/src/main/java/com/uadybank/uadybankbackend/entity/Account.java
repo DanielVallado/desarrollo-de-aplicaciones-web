@@ -2,6 +2,7 @@ package com.uadybank.uadybankbackend.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,22 +20,26 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "matricula", referencedColumnName = "matricula")
+    @NotNull
+    private Client client;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotNull
+    private List<Card> cards;
+
     @Column(name = "status", nullable = false, columnDefinition = "boolean default true")
     @NotBlank
     private boolean status;
 
-    @OneToOne
-    private Client client;
-
-    @OneToMany
-    private List<Card> cards;
-
-    public void addCard(Card card) {
-        this.cards.add(card);
-    }
-
-    public void deleteCard(Card card) {
-        this.cards.remove(card);
+    public Card getCard(Long idCard) {
+        for (Card card : this.cards) {
+            if (card.getIdCard().equals(idCard)) {
+                return card;
+            }
+        }
+        return null;
     }
 
 }

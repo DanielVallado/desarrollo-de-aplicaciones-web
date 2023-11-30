@@ -7,8 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -16,12 +16,11 @@ import lombok.NoArgsConstructor;
 public class Client extends User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idClient;
-
-    @Column(name = "matricula", nullable = false)
-    @NotBlank
+    @Column(name = "matricula", nullable = false, length = 8)
     private String matricula;
+
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    private Account account;
 
     @Column(name = "address", nullable = false)
     @NotBlank

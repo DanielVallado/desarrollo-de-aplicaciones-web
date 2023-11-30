@@ -1,11 +1,11 @@
 package com.uadybank.uadybankbackend.controller;
 
+import com.uadybank.uadybankbackend.dto.AdministratorDTO;
 import com.uadybank.uadybankbackend.entity.Administrator;
-import com.uadybank.uadybankbackend.exception.ResourceNotFoundException;
-import com.uadybank.uadybankbackend.repository.AdministratorRepository;
+import com.uadybank.uadybankbackend.mapper.AdministratorMapper;
+import com.uadybank.uadybankbackend.service.AdministratorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,68 +13,50 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/administrator")
+@CrossOrigin(origins = "*")
 public class AdministratorController implements iController<Administrator> {
 
-    private AdministratorRepository repository;
+    private final AdministratorService service;
 
     @Autowired
-    public void setRepository(AdministratorRepository repository) {
-        this.repository = repository;
+    public AdministratorController(AdministratorService service) {
+        this.service = service;
     }
 
-    @Override
-    @GetMapping("/administrators")
+    @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Administrator> administrators = repository.findAll();
-        return ResponseEntity.ok(administrators);
+        List<Administrator> administrators = service.getAll();
+        List<AdministratorDTO> administratorDTOs = administrators.stream()
+                .map(AdministratorMapper::mapToDTO)
+                .toList();
+        return ResponseEntity.ok(administratorDTOs);
     }
 
-    @Override
-    @GetMapping("/administrators/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        Administrator administrator = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Administrador no encontrado con ID " + id));
-        return ResponseEntity.ok(administrator);
+        Administrator administrator = service.getById(id);
+        AdministratorDTO administratorDTO = AdministratorMapper.mapToDTO(administrator);
+        return ResponseEntity.ok(administratorDTO);
     }
 
-    @Override
-    @PostMapping("/administrators")
+    @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Administrator administrator) {
-        repository.save(administrator);
-        return ResponseEntity.ok(administrator);
+        Administrator newAdministrator = service.save(administrator);
+        AdministratorDTO administratorDTO = AdministratorMapper.mapToDTO(newAdministrator);
+        return ResponseEntity.ok(administratorDTO);
     }
 
-    @Override
-    @PutMapping("/administrators/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody Administrator administrator) {
-        Administrator administratorExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Administrador no encontrado con ID: " + id));
-
-        administratorExistente.setName(administrator.getName());
-        administratorExistente.setEmail(administrator.getEmail());
-        administratorExistente.setPassword(administrator.getPassword());
-        administratorExistente.setPhoneNumber(administrator.getPhoneNumber());
-        administratorExistente.setVerified(administrator.isVerified());
-        administratorExistente.setStatus(administrator.isStatus());
-
-        Administrator newAdministrator = repository.save(administratorExistente);
-
-        return ResponseEntity.ok(newAdministrator);
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid@RequestBody Administrator administrator) {
+        Administrator newAdministrator = service.update(id, administrator);
+        AdministratorDTO administratorDTO = AdministratorMapper.mapToDTO(newAdministrator);
+        return ResponseEntity.ok(administratorDTO);
     }
 
-    @Override
-    @DeleteMapping("/administrators/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        Administrator administratorExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Administrador no encontrado con ID: " + id));
-
-        repository.delete(administratorExistente);
-        return ResponseEntity.ok("Administrador eliminado");
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        service.delete(id);
+        return ResponseEntity.ok("Administrator deleted");
     }
 
 }

@@ -1,11 +1,16 @@
 package com.uadybank.uadybankbackend.entity;
 
+import com.uadybank.uadybankbackend.enums.CardType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,42 +23,37 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCard;
 
-    @Column(name = "typeCard", nullable = false, columnDefinition = "varchar(255) default 'classic'")
-    private String typeCard;
+    @Column(name = "card_type", nullable = false, columnDefinition = "varchar(255) default 'classic'")
+    @Enumerated(EnumType.STRING)
+    @NotBlank
+    private CardType cardType;
 
     @Column(name = "balance", nullable = false, columnDefinition = "decimal default 0.0")
+    @NotNull
     private BigDecimal balance;
 
     @Column(name = "status", nullable = false, columnDefinition = "boolean default true")
+    @NotNull
     private boolean status;
 
     @Column(name = "vip", nullable = false, columnDefinition = "boolean default false")
+    @NotNull
     private boolean vip;
 
-    public BigDecimal depositMoney(BigDecimal amount) {
-        return this.balance.add(amount);
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
+
+    @Column(name = "creation_date", nullable = false, columnDefinition = "datetime default now()")
+    @NotNull
+    private LocalDateTime creationDate;
+
+    public boolean getStatus() {
+        return status;
     }
 
-    public BigDecimal withdrawMoney(BigDecimal amount) {
-        return this.balance.subtract(amount);
-    }
-
-    public void changeStatus() {
-        this.status = !this.status;
-    }
-
-    public void changeVip() {
-        this.vip = !this.vip;
-    }
-
-    public BigDecimal transferMoney(Card card, BigDecimal amount) {
-        this.balance.subtract(amount);
-        return card.balance.add(amount);
-    }
-
-    public BigDecimal pay(Card card, BigDecimal amount) {
-        this.balance.subtract(amount);
-        return card.balance.add(amount);
+    @PrePersist
+    private void setCreationDate() {
+        this.creationDate = LocalDateTime.now();
     }
 
 }

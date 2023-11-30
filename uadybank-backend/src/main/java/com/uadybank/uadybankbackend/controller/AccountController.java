@@ -1,11 +1,14 @@
 package com.uadybank.uadybankbackend.controller;
 
+import com.uadybank.uadybankbackend.dto.AccountDTO;
+import com.uadybank.uadybankbackend.dto.CardDTO;
 import com.uadybank.uadybankbackend.entity.Account;
-import com.uadybank.uadybankbackend.exception.ResourceNotFoundException;
-import com.uadybank.uadybankbackend.repository.AccountRepository;
+import com.uadybank.uadybankbackend.entity.Card;
+import com.uadybank.uadybankbackend.mapper.AccountMapper;
+import com.uadybank.uadybankbackend.mapper.CardMapper;
+import com.uadybank.uadybankbackend.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,64 +16,80 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/account")
+@CrossOrigin(origins = "*")
 public class AccountController implements iController<Account> {
 
-    private AccountRepository repository;
+    private final AccountService service;
 
     @Autowired
-    public void setRepository(AccountRepository repository) {
-        this.repository = repository;
+    public AccountController(AccountService service) {
+        this.service = service;
     }
 
-    @Override
-    @GetMapping("/accounts")
+    @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Account> accounts = repository.findAll();
-        return ResponseEntity.ok(accounts);
+        List<Account> accounts = service.getAll();
+        List<AccountDTO> accountsDTO = accounts.stream()
+                .map(AccountMapper::mapToDTO)
+                .toList();
+        return ResponseEntity.ok(accountsDTO);
     }
 
-    @Override
-    @GetMapping("/accounts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        Account account = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con ID " + id));
-        return ResponseEntity.ok(account);
+        Account account = service.getById(id);
+        AccountDTO accountDTO = AccountMapper.mapToDTO(account);
+        return ResponseEntity.ok(accountDTO);
     }
 
-    @Override
-    @PostMapping("/accounts")
+    @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Account account) {
-        repository.save(account);
-        return ResponseEntity.ok(account);
+        Account newAccount = service.save(account);
+        AccountDTO accountDTO = AccountMapper.mapToDTO(newAccount);
+        return ResponseEntity.ok(accountDTO);
     }
 
-    @Override
-    @PutMapping("/accounts/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody Account account) {
-        Account accountExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con ID: " + id));
-
-        accountExistente.setClient(account.getClient());
-        accountExistente.setCards(account.getCards());
-
-        Account newAccount = repository.save(accountExistente);
-
-        return ResponseEntity.ok(newAccount);
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid@RequestBody Account account) {
+        Account newAccount = service.update(id, account);
+        AccountDTO accountDTO = AccountMapper.mapToDTO(newAccount);
+        return ResponseEntity.ok(accountDTO);
     }
 
-    @Override
-    @DeleteMapping("/accounts/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        Account accountExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con ID: " + id));
-
-        repository.delete(accountExistente);
-        return ResponseEntity.ok("Cuenta eliminada");
+        service.delete(id);
+        return ResponseEntity.ok("Account deleted");
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    //! Cards
+    @GetMapping("/{id}/cards")
+    public ResponseEntity<?> getCards(@PathVariable Long id) {
+        List<Card> cards = service.getCards(id);
+        List<CardDTO> cardsDTO = cards.stream()
+                .map(CardMapper::mapToDTO)
+                .toList();
+        return ResponseEntity.ok(cardsDTO);
+    }
+
+    @GetMapping("/{id}/cards/{cardId}")
+    public ResponseEntity<?> getCard(@PathVariable Long id, @PathVariable Long cardId) {
+        Card card = service.getCard(id, cardId);
+        CardDTO cardDTO = CardMapper.mapToDTO(card);
+        return ResponseEntity.ok(cardDTO);
+    }
+
+    @PostMapping("/{id}/cards")
+    public ResponseEntity<?> createCard(@PathVariable Long id, @Valid @RequestBody Card card) {
+        service.addCard(id, card);
+        CardDTO cardDTO = CardMapper.mapToDTO(card);
+        return ResponseEntity.ok(cardDTO);
+    }
+
+    @DeleteMapping("/{id}/cards/{cardId}")
+    public ResponseEntity<?> deleteCard(@PathVariable Long id, @PathVariable Long cardId) {
+        service.deleteCard(id, cardId);
+        return ResponseEntity.ok("Card deleted");
     }
 
 }

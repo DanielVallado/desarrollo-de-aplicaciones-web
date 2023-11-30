@@ -21,13 +21,13 @@ export const LoginForm = () => {
 
     if (email.trim() !== "" && password.trim() !== "") {
       console.log(`Email: ${email} Password: ${password}`);
-      // LoginService.login(email, password)
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //   });
+      LoginService.login(email, password)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 

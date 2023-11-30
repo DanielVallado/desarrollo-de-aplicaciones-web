@@ -1,11 +1,11 @@
 package com.uadybank.uadybankbackend.controller;
 
+import com.uadybank.uadybankbackend.dto.ClientDTO;
 import com.uadybank.uadybankbackend.entity.Client;
-import com.uadybank.uadybankbackend.exception.ResourceNotFoundException;
-import com.uadybank.uadybankbackend.repository.ClientRepository;
+import com.uadybank.uadybankbackend.mapper.ClientMapper;
+import com.uadybank.uadybankbackend.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,65 +13,43 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/client")
-public class ClientController implements iController<Client> {
+@CrossOrigin(origins = "*")
+public class ClientController{
 
-    private ClientRepository repository;
+    private final ClientService service;
 
     @Autowired
-    public void setRepository(ClientRepository repository) {
-        this.repository = repository;
+    public ClientController(ClientService service) {
+        this.service = service;
     }
 
-    @GetMapping("/clients")
+    @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Client> clients = repository.findAll();
-        return ResponseEntity.ok(clients);
+        List<Client> clients = service.getAll();
+        List<ClientDTO> clientsDTO = clients.stream()
+                .map(ClientMapper::mapToDTO)
+                .toList();
+        return ResponseEntity.ok(clientsDTO);
     }
 
-    @GetMapping("/clients/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) {
-        Client client = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID " + id));
-        return ResponseEntity.ok(client);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable String id) {
+        Client client = service.getById(id);
+        ClientDTO clientDTO = ClientMapper.mapToDTO(client);
+        return ResponseEntity.ok(clientDTO);
     }
 
-    @PostMapping("/clients")
-    public ResponseEntity<?> save(@Valid @RequestBody Client client) {
-        repository.save(client);
-        return ResponseEntity.ok(client);
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable String id, @Valid@RequestBody Client client) {
+        Client newClient = service.update(id, client);
+        ClientDTO clientDTO = ClientMapper.mapToDTO(newClient);
+        return ResponseEntity.ok(clientDTO);
     }
 
-    @PutMapping("/clients/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid@RequestBody Client client) {
-        Client clientExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + id));
-
-        clientExistente.setName(client.getName());
-        clientExistente.setEmail(client.getEmail());
-        clientExistente.setPassword(client.getPassword());
-        clientExistente.setPhoneNumber(client.getPhoneNumber());
-        clientExistente.setVerified(client.isVerified());
-        clientExistente.setStatus(client.isStatus());
-        clientExistente.setMatricula(client.getMatricula());
-        clientExistente.setAddress(client.getAddress());
-
-        Client newClient = repository.save(clientExistente);
-
-        return ResponseEntity.ok(newClient);
-    }
-
-    @DeleteMapping("/clients/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        Client clientExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + id));
-
-        repository.delete(clientExistente);
-        return ResponseEntity.ok("Cliente eliminado");
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    @GetMapping("/{id}/verify")
+    public ResponseEntity<?> verify(@PathVariable String id) {
+        service.verify(id);
+        return ResponseEntity.ok("Client verified");
     }
 
 }

@@ -1,11 +1,14 @@
 package com.uadybank.uadybankbackend.controller;
 
+import com.uadybank.uadybankbackend.dto.CardDTO;
+import com.uadybank.uadybankbackend.dto.TransactionDTO;
 import com.uadybank.uadybankbackend.entity.Card;
-import com.uadybank.uadybankbackend.exception.ResourceNotFoundException;
-import com.uadybank.uadybankbackend.repository.CardRepository;
+import com.uadybank.uadybankbackend.entity.Transaction;
+import com.uadybank.uadybankbackend.mapper.CardMapper;
+import com.uadybank.uadybankbackend.mapper.TransactionMapper;
+import com.uadybank.uadybankbackend.service.CardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,66 +16,53 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/card")
-public class CardController implements iController<Card> {
+@CrossOrigin(origins = "*")
+public class CardController {
 
-    private CardRepository repository;
+    private final CardService service;
 
     @Autowired
-    public void setRepository(CardRepository repository) {
-        this.repository = repository;
+    public CardController(CardService service) {
+        this.service = service;
     }
 
-    @Override
-    @GetMapping("/cards")
+    @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Card> cards = repository.findAll();
-        return ResponseEntity.ok(cards);
+        List<Card> cards = service.getAll();
+        List<CardDTO> cardsDTO = cards.stream()
+                .map(CardMapper::mapToDTO)
+                .toList();
+        return ResponseEntity.ok(cardsDTO);
     }
 
-    @Override
-    @GetMapping("/cards/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        Card card = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Tarjeta no encontrada con ID " + id));
-        return ResponseEntity.ok(card);
+        Card card = service.getById(id);
+        CardDTO cardDTO = CardMapper.mapToDTO(card);
+        return ResponseEntity.ok(cardDTO);
     }
 
-    @Override
-    @PostMapping("/cards")
-    public ResponseEntity<?> save(@Valid @RequestBody Card card) {
-        repository.save(card);
-        return ResponseEntity.ok(card);
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid@RequestBody Card card) {
+        Card newCard = service.update(id, card);
+        CardDTO cardDTO = CardMapper.mapToDTO(newCard);
+        return ResponseEntity.ok(cardDTO);
     }
 
-    @Override
-    @PutMapping("/cards/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody Card card) {
-        Card cardExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Tarjeta no encontrada con ID: " + id));
-
-        cardExistente.setTypeCard(card.getTypeCard());
-        cardExistente.setBalance(card.getBalance());
-        cardExistente.setStatus(card.isStatus());
-        cardExistente.setVip(card.isVip());
-
-        Card newCard = repository.save(cardExistente);
-
-        return ResponseEntity.ok(newCard);
+    @GetMapping("/{id}/transactions")
+    public ResponseEntity<?> getTransactions(@PathVariable Long id) {
+        List<Transaction> transactions = service.getTransactions(id);
+        List<TransactionDTO> transactionsDTO = transactions.stream()
+                .map(TransactionMapper::mapToDTO)
+                .toList();
+        return ResponseEntity.ok(transactionsDTO);
     }
 
-    @Override
-    @DeleteMapping("/cards/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        Card cardExistente = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Tarjeta no encontrada con ID: " + id));
-
-        repository.delete(cardExistente);
-        return ResponseEntity.ok("Tarjeta eliminada");
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    @PostMapping("/{id}")
+    public ResponseEntity<?> createTransaction(@PathVariable Long id, @Valid@RequestBody Transaction transaction) {
+        Card newCard = service.performTransaction(id, transaction);
+        CardDTO cardDTO = CardMapper.mapToDTO(newCard);
+        return ResponseEntity.ok(cardDTO);
     }
 
 }
