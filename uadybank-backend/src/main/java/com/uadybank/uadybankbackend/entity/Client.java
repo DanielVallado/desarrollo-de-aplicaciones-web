@@ -1,5 +1,6 @@
 package com.uadybank.uadybankbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class Client extends User {
     private String matricula;
 
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Account account;
 
     @Column(name = "address", nullable = false)

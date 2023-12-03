@@ -35,7 +35,15 @@ public class ClientService {
         return client.orElseThrow(() -> new ResourceNotFoundException("Client not found for ID: " + id));
     }
 
+    public Optional<Client> getByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
     public Client save(Client client) {
+        Optional<Client> existingClient = repository.findByEmail(client.getEmail());
+        if (existingClient.isPresent()) {
+            throw new IllegalArgumentException("A client with the email " + client.getEmail() + " already exists");
+        }
         client.setVerified(false);
         client.setStatus(true);
         return repository.save(client);

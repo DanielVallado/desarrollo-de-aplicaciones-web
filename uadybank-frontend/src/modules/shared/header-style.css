@@ -3,6 +3,7 @@
 .header {
   background-color: var(--white);
   border-radius: 3rem 0 0 0;
+  width: 100%;
 }
 
 .header__container {

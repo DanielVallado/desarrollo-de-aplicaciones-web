@@ -1,5 +1,6 @@
 package com.uadybank.uadybankbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class Account {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "matricula", referencedColumnName = "matricula")
+    @JsonManagedReference
     @NotNull
     private Client client;
 
@@ -30,7 +32,6 @@ public class Account {
     private List<Card> cards;
 
     @Column(name = "status", nullable = false, columnDefinition = "boolean default true")
-    @NotBlank
     private boolean status;
 
     public Card getCard(Long idCard) {

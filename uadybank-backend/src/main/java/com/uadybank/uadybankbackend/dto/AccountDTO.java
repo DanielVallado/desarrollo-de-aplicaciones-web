@@ -1,6 +1,5 @@
 package com.uadybank.uadybankbackend.dto;
 
-import com.uadybank.uadybankbackend.entity.Client;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,7 @@ import java.util.List;
 public class AccountDTO {
 
     private Long idAccount;
-    private Client client;
+    private ClientDTO client;
     private List<CardDTO> cards;
 
 }

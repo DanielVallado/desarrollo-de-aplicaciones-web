@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class CardDTO {
 
     private Long idCard;
-    private String typeCard;
+    private String cardType;
     private BigDecimal balance;
     private boolean vip;
 

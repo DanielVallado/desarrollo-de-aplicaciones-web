@@ -7,6 +7,8 @@ public class ClientMapper {
 
     public static ClientDTO mapToDTO(Client client) {
         ClientDTO dto = new ClientDTO();
+        dto.setRole("client");
+        dto.setCreationDate(client.getCreationDate());
         dto.setMatricula(client.getMatricula());
         dto.setAddress(client.getAddress());
         dto.setName(client.getName());

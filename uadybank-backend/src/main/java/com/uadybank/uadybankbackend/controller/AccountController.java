@@ -1,5 +1,6 @@
 package com.uadybank.uadybankbackend.controller;
 
+import com.uadybank.uadybankbackend.Util.CookieUtil;
 import com.uadybank.uadybankbackend.dto.AccountDTO;
 import com.uadybank.uadybankbackend.dto.CardDTO;
 import com.uadybank.uadybankbackend.entity.Account;
@@ -13,10 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class AccountController implements iController<Account> {
 
     private final AccountService service;
@@ -39,6 +41,18 @@ public class AccountController implements iController<Account> {
     public ResponseEntity<?> getById(@PathVariable Long id) {
         Account account = service.getById(id);
         AccountDTO accountDTO = AccountMapper.mapToDTO(account);
+        return ResponseEntity.ok(accountDTO);
+    }
+
+    @GetMapping("/client")
+    public ResponseEntity<?> getByClientId(@CookieValue("user") String user) {
+        System.out.println(user);
+        String matricula = CookieUtil.getMatricula(user);
+        Optional<Account> account = service.getByMatricula(matricula);
+        if (account.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        AccountDTO accountDTO = AccountMapper.mapToDTO(account.get());
         return ResponseEntity.ok(accountDTO);
     }
 

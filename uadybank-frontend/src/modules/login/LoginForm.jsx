@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import "./login-forms-style.css";
 import LoginService from "/src/services/LoginService";
 
@@ -8,22 +8,36 @@ export const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const navigate = useNavigate();
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleInputChange = (e) => {
+    setError("");
+    const { name, value } = e.target;
+    switch (name) {
+      case "email":
+        setEmail(value);
+        break;
+      case "password":
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (email.trim() !== "" && password.trim() !== "") {
-      console.log(`Email: ${email} Password: ${password}`);
       LoginService.login(email, password)
         .then((response) => {
-          console.log(response);
+          if (response.role === "client") {
+            navigate("/client");
+          } else if (response.role === "administrator") {
+            navigate("/administrator");
+          } else {
+            setError("Usuario o contraseña incorrectos");
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -31,11 +45,10 @@ export const LoginForm = () => {
     }
   };
 
-  const handleBlur = () => {
-    if (email.trim() === "" || password.trim() === "") {
-      setError("Todos los campos son requeridos");
-    } else {
-      setError("");
+  const handleBlur = (e) => {
+    const { value } = e.target;
+    if (value.trim() === "") {
+      setError(`Todos los campos son requeridos`);
     }
   };
 
@@ -50,16 +63,18 @@ export const LoginForm = () => {
           type="text"
           placeholder="Correo electrónico"
           className="field field-icon field-icon--email"
+          name="email"
           value={email}
-          onChange={handleEmailChange}
+          onChange={handleInputChange}
           onBlur={handleBlur}
         />
         <input
           type="password"
           placeholder="Contraseña"
           className="field field-icon field-icon--password"
+          name="password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={handleInputChange}
           onBlur={handleBlur}
         />
         <a href="/">¿Olvidaste tu contraseña?</a>
@@ -71,10 +86,6 @@ export const LoginForm = () => {
       </form>
     </div>
   );
-};
-
-LoginForm.propTypes = {
-  isActive: PropTypes.bool.isRequired,
 };
 
 export default LoginForm;

@@ -38,11 +38,14 @@ public class AccountService implements iService<Account> {
         return account.orElseThrow(() -> new ResourceNotFoundException("Account not found for ID: " + id));
     }
 
+    public Optional<Account> getByMatricula(String matricula) {
+        return repository.findByClient_Matricula(matricula);
+    }
+
     public Account save(Account account) {
-        Client client = clientService.save(account.getClient());
-        account.setClient(client);
-        for (Card card : account.getCards()) {
-            this.addCard(account.getIdAccount(), card);
+        Client client = account.getClient();
+        if (clientService.getByEmail(client.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("A client with the email " + client.getEmail() + " already exists");
         }
         return repository.save(account);
     }

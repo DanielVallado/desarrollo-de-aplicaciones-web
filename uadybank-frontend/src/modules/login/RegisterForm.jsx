@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import Account from "/src/models/account";
+import AccountService from "/src/services/AccountService";
+import CardType from "/src/models/CardType";
 import "./login-forms-style.css";
 
 export const RegisterForm = () => {
@@ -13,6 +15,21 @@ export const RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
+  function createAccount() {
+    return new Account(
+      null,
+      {
+        name: name,
+        email: email,
+        matricula: matricula,
+        phoneNumber: phone,
+        address: address,
+        password: password,
+      },
+      [{ cardType: CardType.CLASSIC, balance: 0, vip: true }]
+    );
+  }
+
   const handleInputChange = (e) => {
     setError("");
     const { name, value } = e.target;
@@ -25,6 +42,11 @@ export const RegisterForm = () => {
         break;
       case "confirmEmail":
         setConfirmEmail(value);
+        if (value !== email) {
+          setError("Los correos electrónicos no coinciden");
+        } else {
+          setError("");
+        }
         break;
       case "matricula":
         setMatricula(value);
@@ -40,6 +62,11 @@ export const RegisterForm = () => {
         break;
       case "confirmPassword":
         setConfirmPassword(value);
+        if (value !== password) {
+          setError("Las contraseñas no coinciden");
+        } else {
+          setError("");
+        }
         break;
       default:
         break;
@@ -56,18 +83,26 @@ export const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      name.trim() === "" ||
-      email.trim() === "" ||
-      confirmEmail.trim() === "" ||
-      matricula.trim() === "" ||
-      phone.trim() === "" ||
-      address.trim() === "" ||
-      password.trim() === "" ||
-      confirmPassword.trim() === ""
+      name.trim() !== "" ||
+      email.trim() !== "" ||
+      confirmEmail.trim() !== "" ||
+      matricula.trim() !== "" ||
+      phone.trim() !== "" ||
+      address.trim() !== "" ||
+      password.trim() !== "" ||
+      confirmPassword.trim() !== ""
     ) {
-      setError("Por favor, complete todos los campos.");
+      const account = createAccount();
+      console.log(account);
+      AccountService.createAccount(account)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
-      // Realizar la lógica de registro aquí
+      setError("Por favor, complete todos los campos");
     }
   };
 
@@ -174,10 +209,6 @@ export const RegisterForm = () => {
       </form>
     </div>
   );
-};
-
-RegisterForm.propTypes = {
-  isActive: PropTypes.bool.isRequired,
 };
 
 export default RegisterForm;

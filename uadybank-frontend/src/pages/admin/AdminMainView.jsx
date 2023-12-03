@@ -1,11 +1,11 @@
 import React from "react";
-import uadybankLogo from "../../assets/uadybank-white.svg";
+import uadybankLogo from "/src/assets/uadybank-white.svg";
 import Navbar from "/src/modules/shared/navbar";
 import Header from "/src/modules/shared/header";
 import Footer from "/src/modules/shared/footer";
-import "./vista-principal-admin.css";
+import "./admin-main-view-style.css";
 
-export const VistaPrincipalAdmin = () => {
+export const AdminMainView = () => {
   return (
     <div>
       <div className="menu">
@@ -24,4 +24,4 @@ export const VistaPrincipalAdmin = () => {
   );
 };
 
-export default VistaPrincipalAdmin;
+export default AdminMainView;

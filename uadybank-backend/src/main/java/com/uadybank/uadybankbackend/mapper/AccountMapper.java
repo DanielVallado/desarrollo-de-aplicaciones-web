@@ -10,7 +10,7 @@ public class AccountMapper {
     public static AccountDTO mapToDTO(Account account) {
         AccountDTO dto = new AccountDTO();
         dto.setIdAccount(account.getIdAccount());
-        dto.setClient(account.getClient());
+        dto.setClient(ClientMapper.mapToDTO(account.getClient()));
         dto.setCards(account.getCards().stream().map(CardMapper::mapToDTO).collect(Collectors.toList()));
         return dto;
     }

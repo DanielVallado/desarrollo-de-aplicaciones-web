@@ -1,0 +1,36 @@
+@import url(/src/styles/variables.css);
+
+.card-component {
+    width: 90%;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    border: 1px solid var(--gray);
+    background-color: var(--gray-bg);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media (min-width: 768px) {
+    .card-component {
+        width: 30%;
+        margin: 1rem;
+    }
+}
+
+.card-component img {
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.card-component h3 {
+    font-size: 1.6rem;
+}
+
+.card-component p {
+    font-size: 1.2rem;
+}
+
+.balance-section {
+    width: 95%;
+}

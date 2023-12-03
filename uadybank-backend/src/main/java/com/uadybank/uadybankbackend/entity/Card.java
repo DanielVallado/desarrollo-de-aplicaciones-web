@@ -25,7 +25,7 @@ public class Card {
 
     @Column(name = "card_type", nullable = false, columnDefinition = "varchar(255) default 'classic'")
     @Enumerated(EnumType.STRING)
-    @NotBlank
+    @NotNull
     private CardType cardType;
 
     @Column(name = "balance", nullable = false, columnDefinition = "decimal default 0.0")
@@ -33,7 +33,6 @@ public class Card {
     private BigDecimal balance;
 
     @Column(name = "status", nullable = false, columnDefinition = "boolean default true")
-    @NotNull
     private boolean status;
 
     @Column(name = "vip", nullable = false, columnDefinition = "boolean default false")

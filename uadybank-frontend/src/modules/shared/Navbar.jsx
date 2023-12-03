@@ -1,8 +1,13 @@
 import React from "react";
 import uadybankLogo from "../../assets/uadybank-white.svg";
 import "./navbar-style.css";
+import LoginService from "/src/services/LoginService";
 
 export const Navbar = () => {
+  function logout() {
+    LoginService.logout();
+  }
+
   return (
     <div className="navbar">
       <div className="navbar__logo">
@@ -41,7 +46,7 @@ export const Navbar = () => {
             </a>
           </li>
           <li>
-            <a href="/">
+            <a href="/" onClick={logout}>
               <svg
                 className="navbar__icon"
                 xmlns="http://www.w3.org/2000/svg"

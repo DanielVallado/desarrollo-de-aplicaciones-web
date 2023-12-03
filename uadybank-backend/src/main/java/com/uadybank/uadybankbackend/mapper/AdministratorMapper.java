@@ -7,6 +7,8 @@ public class AdministratorMapper {
 
     public static AdministratorDTO mapToDTO(Administrator administrator) {
         AdministratorDTO dto = new AdministratorDTO();
+        dto.setRole("administrator");
+        dto.setCreationDate(administrator.getCreationDate());
         dto.setIdEmployee(administrator.getIdEmployee());
         dto.setName(administrator.getName());
         dto.setEmail(administrator.getEmail());

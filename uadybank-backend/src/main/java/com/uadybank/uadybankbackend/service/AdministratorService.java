@@ -32,7 +32,13 @@ public class AdministratorService implements iService<Administrator> {
         return administrator.orElseThrow(() -> new ResourceNotFoundException("Administrator not found for ID: " + id));
     }
 
+    public Optional<Administrator> getByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
     public Administrator save(Administrator administrator) {
+        administrator.setVerified(false);
+        administrator.setStatus(true);
         return repository.save(administrator);
     }
 

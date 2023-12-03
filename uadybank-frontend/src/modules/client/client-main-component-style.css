@@ -1,0 +1,24 @@
+@import url(/src/styles/variables.css);
+
+.client-main-view {
+    width: min(95%, 120rem);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-list {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+@media (min-width: 768px) {
+    .card-list {
+        width: min(95%, 80rem);
+        flex-direction: row;
+        align-items: center;
+    }
+    
+}

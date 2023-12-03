@@ -40,6 +40,7 @@ public class CardService implements iService<Card> {
     }
 
     public Card save(Card card) {
+        card.setStatus(true);
         return repository.save(card);
     }
 

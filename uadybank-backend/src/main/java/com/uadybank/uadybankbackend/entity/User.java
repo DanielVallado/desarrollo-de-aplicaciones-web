@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Data
@@ -39,7 +40,6 @@ public class User {
     private boolean verified;
 
     @Column(name = "status", nullable = false, columnDefinition = "boolean default true")
-    @NotNull
     private boolean status;
 
     public boolean getStatus() {
@@ -49,6 +49,11 @@ public class User {
     @PrePersist
     private void setCreationDate() {
         this.creationDate = LocalDateTime.now();
+    }
+
+    public String getCreationDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return this.creationDate.format(formatter);
     }
 
     public void update(User user) {
