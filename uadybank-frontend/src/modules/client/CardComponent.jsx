@@ -3,29 +3,28 @@ import PropTypes from "prop-types";
 import "./card-component-style.css";
 
 export const CardComponent = ({ card, onClick }) => {
-  function getCardImage(card) {
-    switch (card.cardType) {
-      case "Classic":
-        return "/src/assets/cards/ClassicCard.png";
-      case "Silver":
-        return "/src/assets/cards/SilverCard.png";
-      case "Black":
-        return "/src/assets/cards/BlackCard.png";
-      default:
-        return "/src/assets/cards/ClassicCard.png";
-    }
-  }
-
   return (
     <div className="card card-component" onClick={onClick}>
       <h3>Tarjeta {card.cardType}</h3>
-      <img
-        src={getCardImage(card.cardType)}
-        alt={`Imagen tarjeta ${card.cardType}`}
-      />
+
+      <picture>
+        <source
+          srcSet={`/src/assets/cards/${card.cardType}Card.webp`}
+          type="image/webp"
+        />
+        <source
+          srcSet={`/src/assets/cards/${card.cardType}Card.avif`}
+          type="image/avif"
+        />
+        <img
+          src={`/src/assets/cards/${card.cardType}Card.png`}
+          alt={`Imagen tarjeta ${card.cardType}`}
+        />
+      </picture>
+
       <div className="balance-section">
         <p>Saldo disponible</p>
-        <p className="bold">${card.balance.toFixed(2)}</p>
+        <output className="bold">${card.balance.toFixed(2)}</output>
       </div>
     </div>
   );
