@@ -1,0 +1,7 @@
+@import url(/src/styles/variables.css);
+
+.admin-main-container {
+    width: min(95%, 120rem);
+    padding: 2rem;
+}
+

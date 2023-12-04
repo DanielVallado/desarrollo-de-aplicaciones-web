@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 import HeaderLogin from "/src/modules/login/HeaderLogin";
 import Footer from "/src/modules/shared/footer";
 import LoginForm from "/src/modules/login/LoginForm";
 import RegisterForm from "/src/modules/login/RegisterForm";
 import LoginPanel from "/src/modules/login/LoginPanel";
+import LoginService from "/src/services/loginService";
 import "./login-style.css";
 
 export const Login = () => {
@@ -13,6 +14,10 @@ export const Login = () => {
   const handleButtonClick = (type) => {
     setIsRegister(type === "register");
   };
+
+  useEffect(() => {
+    LoginService.logout();
+  }, []);
 
   return (
     <div>

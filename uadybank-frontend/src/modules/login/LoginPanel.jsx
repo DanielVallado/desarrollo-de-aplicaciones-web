@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import uadybankLogo from "/src/assets/uadybank-white.svg";
 import "./login-panel-style.css";

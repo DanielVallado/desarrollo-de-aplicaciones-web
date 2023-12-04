@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./header-style.css";
 import uadybankLogo from "../../assets/uadybank-black.svg";
 import defaultUserIcon from "../../assets/user-icon.svg";
@@ -30,7 +30,7 @@ export const Header = () => {
   }
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="header__container">
         <div className="header__logo">
           <a href="#">
@@ -67,7 +67,7 @@ export const Header = () => {
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   );
 };
 

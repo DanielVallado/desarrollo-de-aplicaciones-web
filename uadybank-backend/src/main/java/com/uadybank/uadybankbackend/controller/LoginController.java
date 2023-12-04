@@ -29,7 +29,7 @@ public class LoginController {
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
         Client client = service.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
         if (client != null) {
-            Cookie cookie = new Cookie("user", "client-" + client.getMatricula());
+            Cookie cookie = new Cookie("client", client.getMatricula());
             cookie.setMaxAge(24 * 60 * 60); // 24 horas
             response.addCookie(cookie);
             return ResponseEntity.ok(ClientMapper.mapToDTO(client));
@@ -37,7 +37,7 @@ public class LoginController {
 
         Administrator administrator = service.authenticateAdmin(loginDTO.getEmail(), loginDTO.getPassword());
         if (administrator != null) {
-            Cookie cookie = new Cookie("user", "administrator-" + administrator.getIdEmployee().toString());
+            Cookie cookie = new Cookie("administrator", administrator.getIdEmployee().toString());
             cookie.setMaxAge(24 * 60 * 60);
             response.addCookie(cookie);
             return ResponseEntity.ok(AdministratorMapper.mapToDTO(administrator));
@@ -49,9 +49,13 @@ public class LoginController {
 
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
-        Cookie cookie = new Cookie("user", ""); //borra el valor de la cookie
-        cookie.setMaxAge(0); //establece su tiempo de vida a 0
-        response.addCookie(cookie);
+        Cookie clientCookie = new Cookie("client", ""); //borra el valor de la clientCookie
+        clientCookie.setMaxAge(0); //establece su tiempo de vida a 0
+        response.addCookie(clientCookie);
+
+        Cookie adminCookie = new Cookie("administrator", ""); //borra el valor de la clientCookie
+        adminCookie.setMaxAge(0); //establece su tiempo de vida a 0
+        response.addCookie(adminCookie);
     return ResponseEntity.ok().build();
 }
 

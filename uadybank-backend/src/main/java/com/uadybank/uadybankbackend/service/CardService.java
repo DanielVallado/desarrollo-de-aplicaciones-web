@@ -1,5 +1,6 @@
 package com.uadybank.uadybankbackend.service;
 
+import com.uadybank.uadybankbackend.Util.CardNumberGeneratorUtil;
 import com.uadybank.uadybankbackend.entity.Card;
 import com.uadybank.uadybankbackend.entity.Transaction;
 import com.uadybank.uadybankbackend.exception.ResourceNotFoundException;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CardService implements iService<Card> {
+public class CardService {
 
     private final CardRepository repository;
 
@@ -29,22 +30,29 @@ public class CardService implements iService<Card> {
         return cards;
     }
 
-    public List<Transaction> getTransactions(Long id) {
+    public List<Transaction> getTransactions(String id) {
         Card card = getById(id);
         return card.getTransactions();
     }
 
-    public Card getById(Long id) {
+    public Card getById(String id) {
         Optional<Card> card = repository.findById(id);
         return card.orElseThrow(() -> new ResourceNotFoundException("Card not found for ID: " + id));
     }
 
     public Card save(Card card) {
+        String cardNumber;
+        do {
+            cardNumber = CardNumberGeneratorUtil.generateCardNumber();
+        } while (this.existsByIdCard(cardNumber));
+
+        card.setIdCard(cardNumber);
         card.setStatus(true);
+        card.setVip(false);
         return repository.save(card);
     }
 
-    public Card update(Long id, Card card) {
+    public Card update(String id, Card card) {
         Card cardToUpdate = getById(id);
 
         Optional.ofNullable(card.getCardType()).ifPresent(cardToUpdate::setCardType);
@@ -53,13 +61,17 @@ public class CardService implements iService<Card> {
         return repository.save(cardToUpdate);
     }
 
-    public void delete(Long id)  {
+    public void delete(String id)  {
         Card card = this.getById(id);
         card.setStatus(false);
         repository.save(card);
     }
 
-    public Card performTransaction(Long id, Transaction transaction) {
+    public boolean existsByIdCard(String idCard) {
+        return repository.existsByIdCard(idCard);
+    }
+
+    public Card performTransaction(String id, Transaction transaction) {
         Card card = getById(id);
         switch (transaction.getTransactionType()) {
             case DEPOSIT -> this.depositMoney(id, transaction.getAmount());
@@ -72,19 +84,19 @@ public class CardService implements iService<Card> {
         return repository.save(card);
     }
 
-    public void depositMoney(Long id, BigDecimal amount) {
+    public void depositMoney(String id, BigDecimal amount) {
         Card card = getById(id);
         card.setBalance(card.getBalance().add(amount));
         repository.save(card);
     }
 
-    public void withdrawMoney(Long id, BigDecimal amount) {
+    public void withdrawMoney(String id, BigDecimal amount) {
         Card card = getById(id);
         card.setBalance(card.getBalance().subtract(amount));
         repository.save(card);
     }
 
-    public void transferMoney(Long idFrom, Long idTo, BigDecimal amount) {
+    public void transferMoney(String idFrom, String idTo, BigDecimal amount) {
         Card cardFrom = getById(idFrom);
         Card cardTo = getById(idTo);
         cardFrom.setBalance(cardFrom.getBalance().subtract(amount));
@@ -93,7 +105,7 @@ public class CardService implements iService<Card> {
         repository.save(cardTo);
     }
 
-    public void pay(Long idFrom, Long idTo, BigDecimal amount) {
+    public void pay(String idFrom, String idTo, BigDecimal amount) {
         transferMoney(idFrom, idTo, amount);
     }
 

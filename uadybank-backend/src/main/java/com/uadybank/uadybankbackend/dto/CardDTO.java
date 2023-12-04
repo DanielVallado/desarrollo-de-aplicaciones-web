@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CardDTO {
 
-    private Long idCard;
+    private String idCard;
     private String cardType;
     private BigDecimal balance;
     private boolean vip;

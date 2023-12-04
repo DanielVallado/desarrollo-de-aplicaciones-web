@@ -2,8 +2,8 @@ package com.uadybank.uadybankbackend.entity;
 
 import com.uadybank.uadybankbackend.enums.CardType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +20,8 @@ import java.util.List;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCard;
+    @Size(min = 16, max = 16)
+    private String idCard;
 
     @Column(name = "card_type", nullable = false, columnDefinition = "varchar(255) default 'classic'")
     @Enumerated(EnumType.STRING)

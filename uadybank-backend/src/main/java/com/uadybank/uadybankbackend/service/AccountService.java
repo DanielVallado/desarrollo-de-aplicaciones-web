@@ -1,5 +1,6 @@
 package com.uadybank.uadybankbackend.service;
 
+import com.uadybank.uadybankbackend.Util.CardNumberGeneratorUtil;
 import com.uadybank.uadybankbackend.entity.Account;
 import com.uadybank.uadybankbackend.entity.Card;
 import com.uadybank.uadybankbackend.entity.Client;
@@ -47,6 +48,20 @@ public class AccountService implements iService<Account> {
         if (clientService.getByEmail(client.getEmail()).isPresent()) {
             throw new IllegalArgumentException("A client with the email " + client.getEmail() + " already exists");
         }
+
+        List<Card> cards = account.getCards();
+        for (Card card : cards) {
+            String cardNumber;
+            do {
+                cardNumber = CardNumberGeneratorUtil.generateCardNumber();
+            } while (cardService.existsByIdCard(cardNumber));
+
+            card.setIdCard(cardNumber);
+            card.setStatus(true);
+            card.setVip(false);
+        }
+
+        account.setCards(cards);
         return repository.save(account);
     }
 
@@ -78,7 +93,7 @@ public class AccountService implements iService<Account> {
                 .collect(Collectors.toList());
     }
 
-    public Card getCard(Long id, Long idCard) {
+    public Card getCard(Long id, String idCard) {
         Account account = getById(id);
         return account.getCards().stream()
                 .filter(card -> card.getIdCard().equals(idCard) && card.getStatus())
@@ -92,6 +107,14 @@ public class AccountService implements iService<Account> {
                 .filter(Card::getStatus)
                 .count();
         if (activeCardsCount < 3) {
+            String cardNumber;
+            do {
+                cardNumber = CardNumberGeneratorUtil.generateCardNumber();
+            } while (cardService.existsByIdCard(cardNumber));
+
+            card.setIdCard(cardNumber);
+            card.setStatus(true);
+            card.setVip(false);
             account.getCards().add(card);
             repository.save(account);
         } else {

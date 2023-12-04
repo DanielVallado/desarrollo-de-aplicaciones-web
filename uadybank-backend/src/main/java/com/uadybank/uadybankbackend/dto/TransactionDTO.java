@@ -17,6 +17,6 @@ public class TransactionDTO {
     private String description;
     private String transactionType;
     private LocalDateTime transactionDate;
-    private Long destinationCard;
+    private String destinationCard;
 
 }

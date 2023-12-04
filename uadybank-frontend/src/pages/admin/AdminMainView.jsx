@@ -1,8 +1,8 @@
-import React from "react";
-import uadybankLogo from "/src/assets/uadybank-white.svg";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "/src/modules/shared/navbar";
 import Header from "/src/modules/shared/header";
 import Footer from "/src/modules/shared/footer";
+import AdminMainComponent from "../../modules/admin/AdminMainComponent";
 import "./admin-main-view-style.css";
 
 export const AdminMainView = () => {
@@ -14,9 +14,10 @@ export const AdminMainView = () => {
         </div>
 
         <main>
-          <section className="menu__header">
-            <Header />
-          </section>
+          <Header />
+          <Routes>
+            <Route exact path="/" element={<AdminMainComponent />} />
+          </Routes>
         </main>
       </div>
       <Footer />

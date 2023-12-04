@@ -1,4 +1,3 @@
-import React from "react";
 import uadybankLogo from "/src/assets/uadybank-black.svg";
 import "./header-login-style.css";
 

@@ -1,6 +1,5 @@
 package com.uadybank.uadybankbackend.controller;
 
-import com.uadybank.uadybankbackend.Util.CookieUtil;
 import com.uadybank.uadybankbackend.dto.AccountDTO;
 import com.uadybank.uadybankbackend.dto.CardDTO;
 import com.uadybank.uadybankbackend.entity.Account;
@@ -45,9 +44,7 @@ public class AccountController implements iController<Account> {
     }
 
     @GetMapping("/client")
-    public ResponseEntity<?> getByClientId(@CookieValue("user") String user) {
-        System.out.println(user);
-        String matricula = CookieUtil.getMatricula(user);
+    public ResponseEntity<?> getByClientId(@CookieValue("client") String matricula) {
         Optional<Account> account = service.getByMatricula(matricula);
         if (account.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -87,7 +84,7 @@ public class AccountController implements iController<Account> {
     }
 
     @GetMapping("/{id}/cards/{cardId}")
-    public ResponseEntity<?> getCard(@PathVariable Long id, @PathVariable Long cardId) {
+    public ResponseEntity<?> getCard(@PathVariable Long id, @PathVariable String cardId) {
         Card card = service.getCard(id, cardId);
         CardDTO cardDTO = CardMapper.mapToDTO(card);
         return ResponseEntity.ok(cardDTO);

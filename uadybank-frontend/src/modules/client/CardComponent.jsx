@@ -1,10 +1,13 @@
-import React from "react";
 import PropTypes from "prop-types";
 import "./card-component-style.css";
 
-export const CardComponent = ({ card, onClick }) => {
+export const CardComponent = ({ card, onClick, onDoubleClick }) => {
   return (
-    <div className="card card-component" onClick={onClick}>
+    <div
+      className="card card-component"
+      onClick={onClick}
+      onDoubleClick={onDoubleClick}
+    >
       <h3>Tarjeta {card.cardType}</h3>
 
       <picture>
@@ -33,6 +36,7 @@ export const CardComponent = ({ card, onClick }) => {
 CardComponent.propTypes = {
   card: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
 };
 
 export default CardComponent;

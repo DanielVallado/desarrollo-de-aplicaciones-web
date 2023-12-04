@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/card")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class CardController {
 
     private final CardService service;
@@ -36,21 +36,21 @@ public class CardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) {
+    public ResponseEntity<?> getById(@PathVariable String id) {
         Card card = service.getById(id);
         CardDTO cardDTO = CardMapper.mapToDTO(card);
         return ResponseEntity.ok(cardDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid@RequestBody Card card) {
+    public ResponseEntity<?> update(@PathVariable String id, @Valid@RequestBody Card card) {
         Card newCard = service.update(id, card);
         CardDTO cardDTO = CardMapper.mapToDTO(newCard);
         return ResponseEntity.ok(cardDTO);
     }
 
     @GetMapping("/{id}/transactions")
-    public ResponseEntity<?> getTransactions(@PathVariable Long id) {
+    public ResponseEntity<?> getTransactions(@PathVariable String id) {
         List<Transaction> transactions = service.getTransactions(id);
         List<TransactionDTO> transactionsDTO = transactions.stream()
                 .map(TransactionMapper::mapToDTO)
@@ -59,7 +59,7 @@ public class CardController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<?> createTransaction(@PathVariable Long id, @Valid@RequestBody Transaction transaction) {
+    public ResponseEntity<?> createTransaction(@PathVariable String id, @Valid@RequestBody Transaction transaction) {
         Card newCard = service.performTransaction(id, transaction);
         CardDTO cardDTO = CardMapper.mapToDTO(newCard);
         return ResponseEntity.ok(cardDTO);

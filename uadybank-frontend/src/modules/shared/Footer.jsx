@@ -1,4 +1,3 @@
-import React from "react";
 import "./footer-style.css";
 import uadybankLogo from "../../assets/uadybank-white.svg";
 
@@ -9,7 +8,7 @@ export const Footer = () => {
   }
 
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="footer__logo">
         <a href="#">
           <img src={uadybankLogo} alt="Logo UADYBank" />
@@ -39,7 +38,7 @@ export const Footer = () => {
           <p>Todos los derechos reservados UADYBANK {getYear()} ©</p>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

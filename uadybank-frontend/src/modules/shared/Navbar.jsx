@@ -1,4 +1,3 @@
-import React from "react";
 import uadybankLogo from "../../assets/uadybank-white.svg";
 import "./navbar-style.css";
 import LoginService from "/src/services/LoginService";
@@ -9,7 +8,7 @@ export const Navbar = () => {
   }
 
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div className="navbar__logo">
         <a href="">
           <img src={uadybankLogo} alt="UADYBank" />
@@ -68,7 +67,7 @@ export const Navbar = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 };
 

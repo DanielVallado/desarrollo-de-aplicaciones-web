@@ -39,7 +39,7 @@ public class Transaction {
     private LocalDateTime transactionDate;
 
     @Column(name = "destination", columnDefinition = "bigint default 0")
-    private Long destination;
+    private String destination;
 
     @PrePersist
     private void setTransactionDate() {

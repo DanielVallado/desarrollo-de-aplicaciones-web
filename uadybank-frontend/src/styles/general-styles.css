@@ -65,6 +65,14 @@ li {
     font-weight: 700;
 }
 
+.loading {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2rem;
+}
+
 .card {
     background-color: var(--white);
     border-radius: 15px;

@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UADYBankLogo from "/uadybank-black.svg";
 import "./App.css";
 import "./styles/general-styles.css";
 import Login from "/src/pages/login/login";

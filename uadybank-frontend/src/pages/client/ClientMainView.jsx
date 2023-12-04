@@ -1,10 +1,9 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "/src/modules/shared/navbar";
 import Header from "/src/modules/shared/header";
 import Footer from "/src/modules/shared/footer";
 import ClientMainComponent from "/src/modules/client/ClientMainComponent";
-import TransferView from "/src/modules/client/TransferView";
+import TransferComponent from "/src/modules/client/TransferComponent";
 import "./client-main-view-style.css";
 
 export const ClientMainView = () => {
@@ -19,7 +18,7 @@ export const ClientMainView = () => {
           <Header />
           <Routes>
             <Route exact path="/" element={<ClientMainComponent />} />
-            <Route path="/transfer/:cardId" element={<TransferView />} />
+            <Route path="/transfer/:idCard" element={<TransferComponent />} />
           </Routes>
         </main>
       </div>

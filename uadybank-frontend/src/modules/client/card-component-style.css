@@ -19,8 +19,14 @@
 }
 
 .card-component img {
-    width: 100%;
-    margin: 2rem 0;
+    display: none;
+}
+@media (min-width: 768px) {
+    .card-component img {
+        display: block;
+        width: 100%;
+        margin: 2rem 0;
+    }
 }
 
 .card-component h3 {
@@ -32,5 +38,13 @@
 }
 
 .balance-section {
-    width: 95%;
+    text-align: center;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .balance-section {
+        width: 95%;
+        text-align: left;
+    }   
 }

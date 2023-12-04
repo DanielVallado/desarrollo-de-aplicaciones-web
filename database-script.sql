@@ -57,7 +57,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `uadybank`.`cards`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `uadybank`.`cards` (
-  `id_card` BIGINT NOT NULL AUTO_INCREMENT,
+  `id_card` VARCHAR(16) NOT NULL,
   `balance` DECIMAL(13,4) NOT NULL DEFAULT '0',
   `creation_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` TINYINT(1) NOT NULL DEFAULT '1',
@@ -74,7 +74,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `uadybank`.`accounts_cards` (
   `account_id_account` BIGINT NOT NULL,
-  `cards_id_card` BIGINT NOT NULL,
+  `cards_id_card` VARCHAR(16) NOT NULL,
   UNIQUE INDEX `UK_b4mm68j24nsqv1sbg7ed5exh6` (`cards_id_card` ASC) VISIBLE,
   INDEX `FK4xi12dum6aal8ocecobaqtu8a` (`account_id_account` ASC) VISIBLE,
   CONSTRAINT `FK4xi12dum6aal8ocecobaqtu8a`
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `uadybank`.`transactions` (
   `description` VARCHAR(255) NULL DEFAULT '',
   `transaction_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `transaction_type` VARCHAR(255) NOT NULL DEFAULT '',
-  `destination` BIGINT NULL DEFAULT '0',
+  `destination` VARCHAR(16) NULL DEFAULT '0',
   PRIMARY KEY (`id_transaction`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -126,7 +126,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `uadybank`.`cards_transactions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `uadybank`.`cards_transactions` (
-  `card_id_card` BIGINT NOT NULL,
+  `card_id_card` VARCHAR(16) NOT NULL,
   `transactions_id_transaction` BIGINT NOT NULL,
   UNIQUE INDEX `UK_ewjsbb570ehphhdsll05p0y2m` (`transactions_id_transaction` ASC) VISIBLE,
   INDEX `FK2sh4two600g30s5er07xwym6v` (`card_id_card` ASC) VISIBLE,
