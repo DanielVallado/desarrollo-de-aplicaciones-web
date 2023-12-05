@@ -2,7 +2,6 @@ package com.uadybank.uadybankbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +33,7 @@ public class Account {
     @Column(name = "status", nullable = false, columnDefinition = "boolean default true")
     private boolean status;
 
-    public Card getCard(Long idCard) {
+    public Card getCard(String idCard) {
         for (Card card : this.cards) {
             if (card.getIdCard().equals(idCard)) {
                 return card;

@@ -9,6 +9,7 @@ import com.uadybank.uadybankbackend.mapper.CardMapper;
 import com.uadybank.uadybankbackend.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,11 @@ public class AccountController implements iController<Account> {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@CookieValue(value = "administrator", required = false) Long idEmployee) {
+        if (idEmployee == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized access");
+        }
+
         List<Account> accounts = service.getAll();
         List<AccountDTO> accountsDTO = accounts.stream()
                 .map(AccountMapper::mapToDTO)
@@ -44,7 +49,7 @@ public class AccountController implements iController<Account> {
     }
 
     @GetMapping("/client")
-    public ResponseEntity<?> getByClientId(@CookieValue("client") String matricula) {
+    public ResponseEntity<?> getByMatricula(@CookieValue("client") String matricula) {
         Optional<Account> account = service.getByMatricula(matricula);
         if (account.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -98,7 +103,7 @@ public class AccountController implements iController<Account> {
     }
 
     @DeleteMapping("/{id}/cards/{cardId}")
-    public ResponseEntity<?> deleteCard(@PathVariable Long id, @PathVariable Long cardId) {
+    public ResponseEntity<?> deleteCard(@PathVariable Long id, @PathVariable String cardId) {
         service.deleteCard(id, cardId);
         return ResponseEntity.ok("Card deleted");
     }

@@ -10,7 +10,7 @@
 }
 
 .tranfer__card-info {
-    width: min(95%, 60rem);
+    width: min(95%, 80rem);
     display: flex;
     flex-direction: column;
     align-items: center;

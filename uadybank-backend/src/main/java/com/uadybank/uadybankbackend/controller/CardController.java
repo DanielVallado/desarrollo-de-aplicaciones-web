@@ -9,6 +9,7 @@ import com.uadybank.uadybankbackend.mapper.TransactionMapper;
 import com.uadybank.uadybankbackend.service.CardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,11 @@ public class CardController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@CookieValue(value = "administrator", required = false) Long idEmployee) {
+        if (idEmployee == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized access");
+        }
+
         List<Card> cards = service.getAll();
         List<CardDTO> cardsDTO = cards.stream()
                 .map(CardMapper::mapToDTO)

@@ -30,7 +30,7 @@ public class LoginController {
         Client client = service.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
         if (client != null) {
             Cookie cookie = new Cookie("client", client.getMatricula());
-            cookie.setMaxAge(24 * 60 * 60); // 24 horas
+            cookie.setMaxAge(2 * 60 * 60); // 2 horas
             response.addCookie(cookie);
             return ResponseEntity.ok(ClientMapper.mapToDTO(client));
         }
@@ -38,7 +38,7 @@ public class LoginController {
         Administrator administrator = service.authenticateAdmin(loginDTO.getEmail(), loginDTO.getPassword());
         if (administrator != null) {
             Cookie cookie = new Cookie("administrator", administrator.getIdEmployee().toString());
-            cookie.setMaxAge(24 * 60 * 60);
+            cookie.setMaxAge(2 * 60 * 60);
             response.addCookie(cookie);
             return ResponseEntity.ok(AdministratorMapper.mapToDTO(administrator));
         }
@@ -53,8 +53,8 @@ public class LoginController {
         clientCookie.setMaxAge(0); //establece su tiempo de vida a 0
         response.addCookie(clientCookie);
 
-        Cookie adminCookie = new Cookie("administrator", ""); //borra el valor de la clientCookie
-        adminCookie.setMaxAge(0); //establece su tiempo de vida a 0
+        Cookie adminCookie = new Cookie("administrator", "");
+        adminCookie.setMaxAge(0);
         response.addCookie(adminCookie);
     return ResponseEntity.ok().build();
 }

@@ -48,6 +48,7 @@ public class AccountService implements iService<Account> {
         if (clientService.getByEmail(client.getEmail()).isPresent()) {
             throw new IllegalArgumentException("A client with the email " + client.getEmail() + " already exists");
         }
+        client.setStatus(true);
 
         List<Card> cards = account.getCards();
         for (Card card : cards) {
@@ -122,7 +123,7 @@ public class AccountService implements iService<Account> {
         }
     }
 
-    public void deleteCard(Long id, Long idCard) {
+    public void deleteCard(Long id, String idCard) {
         Account account = getById(id);
         Card card = account.getCard(idCard);
         card.setStatus(false);

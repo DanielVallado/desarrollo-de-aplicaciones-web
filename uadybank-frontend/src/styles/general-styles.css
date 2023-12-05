@@ -81,7 +81,7 @@ li {
 
 .button {
     background-color: var(--secondary-color);
-    filter: drop-shadow(10px 10px 50px var(--gradient-black));
+    box-shadow: 5px 5px 30px 0 var(--gradient-black);
     color: var(--primary-color);
     border: none;
     border-radius: 10px;

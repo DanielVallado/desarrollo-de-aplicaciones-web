@@ -6,6 +6,7 @@ import com.uadybank.uadybankbackend.mapper.ClientMapper;
 import com.uadybank.uadybankbackend.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/client")
-@CrossOrigin(origins = "*")
-public class ClientController{
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+public class ClientController {
 
     private final ClientService service;
 
@@ -24,11 +25,16 @@ public class ClientController{
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@CookieValue(value = "administrator", required = false) Long idEmployee) {
+        if (idEmployee == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized access");
+        }
+
         List<Client> clients = service.getAll();
         List<ClientDTO> clientsDTO = clients.stream()
                 .map(ClientMapper::mapToDTO)
                 .toList();
+
         return ResponseEntity.ok(clientsDTO);
     }
 

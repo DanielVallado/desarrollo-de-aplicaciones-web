@@ -6,6 +6,7 @@ import com.uadybank.uadybankbackend.mapper.AdministratorMapper;
 import com.uadybank.uadybankbackend.service.AdministratorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/administrator")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class AdministratorController implements iController<Administrator> {
 
     private final AdministratorService service;
@@ -24,7 +25,11 @@ public class AdministratorController implements iController<Administrator> {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@CookieValue(value = "administrator", required = false) Long idEmployee) {
+        if (idEmployee == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized access");
+        }
+
         List<Administrator> administrators = service.getAll();
         List<AdministratorDTO> administratorDTOs = administrators.stream()
                 .map(AdministratorMapper::mapToDTO)
