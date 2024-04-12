@@ -2,7 +2,6 @@ package com.uadybank.uadybankbackend.entity;
 
 import com.uadybank.uadybankbackend.enums.TransactionType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,11 +30,10 @@ public class Transaction {
 
     @Column(name = "transaction_type", nullable = false, columnDefinition = "VARCHAR(255) default ''")
     @Enumerated(EnumType.STRING)
-    @NotBlank
+    @NotNull
     private TransactionType transactionType;
 
     @Column(name = "transaction_date", nullable = false, columnDefinition = "datetime default now()")
-    @NotNull
     private LocalDateTime transactionDate;
 
     @Column(name = "destination", columnDefinition = "bigint default 0")

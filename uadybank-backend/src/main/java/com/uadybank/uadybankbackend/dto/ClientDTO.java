@@ -2,8 +2,6 @@ package com.uadybank.uadybankbackend.dto;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class ClientDTO {
 

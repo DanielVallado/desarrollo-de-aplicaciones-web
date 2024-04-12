@@ -11,10 +11,10 @@
 
 .tranfer__card-info {
     width: min(95%, 80rem);
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
 }
 @media (min-width: 768px) {
     .tranfer__card-info {
@@ -60,4 +60,142 @@
 .card-info--balance {
     font-size: 2rem;
     font-weight: 500;
+}
+
+.recipient {
+    width: min(95%, 80rem);
+    padding: 2rem;
+    background-color: var(--gray-bg);
+}
+
+.recipient__title {
+    font-size: 2.3rem;
+    margin-bottom: 2rem;
+}
+
+.recipient__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+@media (min-width: 768px) {
+    .recipient__form {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0;
+    }
+}
+
+.recipient__field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 768px) {
+    .recipient__field {
+        width: 46%;
+    }
+}
+
+.recipient__field label {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.recipient__field input {
+    font-size: 1.8rem;
+}
+
+.cards-route__container {
+    width: min(95%, 80rem);
+    background-color: var(--gray-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cards-route {
+    padding: 2rem;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cards-route__card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cards-route__title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+    .cards-route__title {
+        font-size: 1.8rem;
+    }
+}
+
+.cards-route__image {
+    width: 70%;
+    margin-bottom: 1rem;
+}
+
+.cards-route__icon {
+    width: 10rem;
+}
+
+.cards-route__number {
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.cards-route__balance {
+    text-align: center;
+}
+
+.cards-route__balance p,
+.cards-route__amount p {
+    font-size: 1.8rem;
+}
+
+.cards-route__balance output {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.cards-route__amount {
+    margin: 3rem 0 2rem 0;
+    text-align: center;
+}
+
+.cards-route__amount input {
+    margin-top: 0.5rem;
+    font-size: 1.8rem;
+    width: 20rem;
+    text-align: center;
+}
+
+/* Remove rows for input number */
+.cards-route__amount input[type="number"] {
+    margin-top: 0.5rem;
+    font-size: 1.8rem;
+    width: 20rem;
+    -moz-appearance: textfield;
+    /* Para Firefox */
+}
+
+.cards-route__amount input[type="number"]::-webkit-inner-spin-button,
+.cards-route__amount input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    /* Para Chrome y Safari */
+    margin: 0;
+}
+
+.button--transfer {
+    font-size: 2rem;
+    margin: 2rem 0;
 }

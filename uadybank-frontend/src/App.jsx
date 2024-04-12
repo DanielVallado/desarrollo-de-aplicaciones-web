@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import "./styles/normalize.css";
 import "./styles/general-styles.css";
 import Login from "/src/pages/login/login";
 import AdminMainView from "/src/pages/admin/AdminMainView";
@@ -13,7 +14,7 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route exact path="/login" element={<Login />} />
           <Route path="/client/*" element={<ClientMainView />} />
-          <Route path="/administrator" element={<AdminMainView />} />
+          <Route path="/administrator/*" element={<AdminMainView />} />
         </Routes>
       </BrowserRouter>
     </>

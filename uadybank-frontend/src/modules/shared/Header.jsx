@@ -1,11 +1,32 @@
-import { useState } from "react";
-import "./header-style.css";
-import uadybankLogo from "../../assets/uadybank-black.svg";
-import defaultUserIcon from "../../assets/user-icon.svg";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import uadybankLogo from "/src/assets/uadybank-black.svg";
+import defaultUserIcon from "/src/assets/user-icon.svg";
 import BurguerButton from "./BurguerButton";
+import LoginService from "/src/services/LoginService";
+import AccountService from "/src/services/AccountService";
+import "./header-style.css";
 
 export const Header = () => {
+  const navigate = useNavigate();
+
+  const [client, setClient] = useState({});
   const [clicked, setClicked] = useState(false);
+
+  useEffect(() => {
+    const cookieValue = Cookies.get("client");
+    if (!cookieValue) {
+      navigate("/login");
+    } else {
+      const fetchCards = async () => {
+        const account = await AccountService.getAccountByMatricula();
+        setClient(account.client);
+      };
+
+      fetchCards();
+    }
+  }, [navigate]);
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -20,20 +41,31 @@ export const Header = () => {
     }
   }
 
-  function getUsername() {
-    const username = localStorage.getItem("username");
-    if (username) {
-      return username;
-    } else {
-      return "Usuario";
+  function home() {
+    if (Cookies.get("client")) {
+      navigate("/client");
+    } else if (Cookies.get("administrator")) {
+      navigate("/administrator");
     }
+  }
+
+  function profile() {
+    if (Cookies.get("client")) {
+      navigate("/client/profile");
+    } else if (Cookies.get("administrator")) {
+      navigate("/administrator/profile");
+    }
+  }
+
+  function logout() {
+    LoginService.logout();
   }
 
   return (
     <header className="header">
       <div className="header__container">
         <div className="header__logo">
-          <a href="#">
+          <a onClick={profile}>
             <img src={uadybankLogo} alt="Logo UADYBank" />
             <span className="header__barra"></span>
             <h1>UADYBANK</h1>
@@ -44,26 +76,37 @@ export const Header = () => {
           <BurguerButton onClick={handleClick} isOpen={clicked} />
         </div>
 
-        <div className="header__user">
-          <a href="#">
-            <div className="header__image">
-              <img src={getImagePath()} alt="" />
-            </div>
-            <p>{getUsername()}</p>
-          </a>
-        </div>
+        {client ? (
+          <div className="header__user">
+            <a onClick={profile}>
+              <div className="header__image">
+                <img src={getImagePath()} alt="" />
+              </div>
+              <p>{client.name}</p>
+            </a>
+          </div>
+        ) : (
+          <div className="header__user">
+            <a onClick={profile}>
+              <div className="header__image">
+                <img src={defaultUserIcon} alt="" />
+              </div>
+              <p>Usuario</p>
+            </a>
+          </div>
+        )}
       </div>
 
       <nav className={`header__options ${clicked ? "open" : ""}`}>
         <ul>
           <li>
-            <a href="">Inicio</a>
+            <a onClick={home}>Inicio</a>
           </li>
           <li>
-            <a href="">Perfil</a>
+            <a onClick={profile}>Perfil</a>
           </li>
           <li>
-            <a href="">Salir</a>
+            <a onClick={logout}>Salir</a>
           </li>
         </ul>
       </nav>

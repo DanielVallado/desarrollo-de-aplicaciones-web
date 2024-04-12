@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller for login operations.
+ */
 @RestController
 @RequestMapping("/login")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -20,11 +23,23 @@ public class LoginController {
 
     private final LoginService service;
 
+    /**
+     * Constructor to inject the login service.
+     *
+     * @param service the login service
+     */
     @Autowired
     public LoginController(LoginService service) {
         this.service = service;
     }
 
+    /**
+     * Authenticates a user.
+     *
+     * @param loginDTO the login data
+     * @param response the HTTP response
+     * @return the authenticated user
+     */
     @PostMapping
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
         Client client = service.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
@@ -47,6 +62,12 @@ public class LoginController {
         return ResponseEntity.ok(errorDTO);
     }
 
+    /**
+     * Logs out a user.
+     *
+     * @param response the HTTP response
+     * @return a response entity with a success message
+     */
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
         Cookie clientCookie = new Cookie("client", ""); //borra el valor de la clientCookie

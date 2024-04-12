@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller for account operations.
+ */
 @RestController
 @RequestMapping("/account")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -23,11 +26,22 @@ public class AccountController implements iController<Account> {
 
     private final AccountService service;
 
+    /**
+     * Constructor to inject the account service.
+     *
+     * @param service the account service
+     */
     @Autowired
     public AccountController(AccountService service) {
         this.service = service;
     }
 
+    /**
+     * Gets all accounts.
+     *
+     * @param idEmployee the employee ID
+     * @return a list of accounts
+     */
     @GetMapping
     public ResponseEntity<?> getAll(@CookieValue(value = "administrator", required = false) Long idEmployee) {
         if (idEmployee == null) {
@@ -41,6 +55,12 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(accountsDTO);
     }
 
+    /**
+     * Gets an account by its ID.
+     *
+     * @param id the account ID
+     * @return the account
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         Account account = service.getById(id);
@@ -48,6 +68,12 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(accountDTO);
     }
 
+    /**
+     * Gets an account by its matricula.
+     *
+     * @param matricula the matricula
+     * @return the account
+     */
     @GetMapping("/client")
     public ResponseEntity<?> getByMatricula(@CookieValue("client") String matricula) {
         Optional<Account> account = service.getByMatricula(matricula);
@@ -58,6 +84,12 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(accountDTO);
     }
 
+    /**
+     * Creates a new account.
+     *
+     * @param account the account to create
+     * @return the created account
+     */
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Account account) {
         Account newAccount = service.save(account);
@@ -65,6 +97,13 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(accountDTO);
     }
 
+    /**
+     * Updates an account.
+     *
+     * @param id the account ID
+     * @param account the account with the updated data
+     * @return the updated account
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @Valid@RequestBody Account account) {
         Account newAccount = service.update(id, account);
@@ -72,13 +111,24 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(accountDTO);
     }
 
+    /**
+     * Deletes an account.
+     *
+     * @param id the account ID
+     * @return a response entity with a success message
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.ok("Account deleted");
     }
 
-    //! Cards
+    /**
+     * Gets all cards of an account.
+     *
+     * @param id the account ID
+     * @return a list of cards of the account
+     */
     @GetMapping("/{id}/cards")
     public ResponseEntity<?> getCards(@PathVariable Long id) {
         List<Card> cards = service.getCards(id);
@@ -88,6 +138,13 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(cardsDTO);
     }
 
+    /**
+     * Gets a card of an account by its ID.
+     *
+     * @param id the account ID
+     * @param cardId the card ID
+     * @return the card
+     */
     @GetMapping("/{id}/cards/{cardId}")
     public ResponseEntity<?> getCard(@PathVariable Long id, @PathVariable String cardId) {
         Card card = service.getCard(id, cardId);
@@ -95,6 +152,13 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(cardDTO);
     }
 
+    /**
+     * Creates a new card for an account.
+     *
+     * @param id the account ID
+     * @param card the card to create
+     * @return the created card
+     */
     @PostMapping("/{id}/cards")
     public ResponseEntity<?> createCard(@PathVariable Long id, @Valid @RequestBody Card card) {
         service.addCard(id, card);
@@ -102,6 +166,13 @@ public class AccountController implements iController<Account> {
         return ResponseEntity.ok(cardDTO);
     }
 
+    /**
+     * Deletes a card of an account.
+     *
+     * @param id the account ID
+     * @param cardId the card ID
+     * @return a response entity with a success message
+     */
     @DeleteMapping("/{id}/cards/{cardId}")
     public ResponseEntity<?> deleteCard(@PathVariable Long id, @PathVariable String cardId) {
         service.deleteCard(id, cardId);

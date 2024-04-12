@@ -1,10 +1,31 @@
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import uadybankLogo from "../../assets/uadybank-white.svg";
-import "./navbar-style.css";
 import LoginService from "/src/services/LoginService";
+import "./navbar-style.css";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
+  function home() {
+    if (Cookies.get("client")) {
+      navigate("/client");
+    } else if (Cookies.get("administrator")) {
+      navigate("/administrator");
+    }
+  }
+
+  function profile() {
+    if (Cookies.get("client")) {
+      navigate("/client/profile");
+    } else if (Cookies.get("administrator")) {
+      navigate("/administrator/profile");
+    }
+  }
+
   function logout() {
     LoginService.logout();
+    navigate("/");
   }
 
   return (
@@ -17,7 +38,7 @@ export const Navbar = () => {
       <div className="navbar__menu">
         <ul>
           <li>
-            <a href="/">
+            <a onClick={home}>
               <svg
                 className="navbar__icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +52,7 @@ export const Navbar = () => {
             </a>
           </li>
           <li>
-            <a href="/">
+            <a onClick={profile}>
               <svg
                 className="navbar__icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +66,7 @@ export const Navbar = () => {
             </a>
           </li>
           <li>
-            <a href="/" onClick={logout}>
+            <a onClick={logout}>
               <svg
                 className="navbar__icon"
                 xmlns="http://www.w3.org/2000/svg"

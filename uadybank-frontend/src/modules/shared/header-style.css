@@ -24,6 +24,7 @@
 .header__logo a {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .header__logo img {
@@ -67,6 +68,7 @@
 .header__user a {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .header__user p {

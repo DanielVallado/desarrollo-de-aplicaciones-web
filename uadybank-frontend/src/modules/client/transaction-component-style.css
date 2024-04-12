@@ -1,0 +1,14 @@
+@import url(/src/styles/variables.css);
+
+.transaction-component {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+@media (min-width: 768px) {
+    .transaction-component {
+        flex-direction: row;
+    }
+}

@@ -19,8 +19,7 @@ class LoginService {
   logout() {
     axios
       .get(`${API_URL}/logout`, { withCredentials: true })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         document.cookie =
           "client=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie =
